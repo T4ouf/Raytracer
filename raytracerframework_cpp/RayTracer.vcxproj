@@ -1,0 +1,175 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup Label="ProjectConfigurations">
+    <ProjectConfiguration Include="Debug|Win32">
+      <Configuration>Debug</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Release|Win32">
+      <Configuration>Release</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+  </ItemGroup>
+  <PropertyGroup Label="Globals">
+    <ProjectGuid>{7FCED6CA-38E1-4F62-B84A-37CEA310A250}</ProjectGuid>
+    <Keyword>Win32Proj</Keyword>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="Configuration">
+    <ConfigurationType>Application</ConfigurationType>
+    <PlatformToolset>v141</PlatformToolset>
+    <CharacterSet>MultiByte</CharacterSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
+    <ConfigurationType>Application</ConfigurationType>
+    <PlatformToolset>v141</PlatformToolset>
+    <CharacterSet>MultiByte</CharacterSet>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.props" />
+  <ImportGroup Label="ExtensionSettings">
+  </ImportGroup>
+  <ImportGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="PropertySheets">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <ImportGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="PropertySheets">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <PropertyGroup Label="UserMacros" />
+  <PropertyGroup>
+    <_ProjectFileVersion>15.0.28127.55</_ProjectFileVersion>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <OutDir>Debug\</OutDir>
+    <IntDir>Debug\</IntDir>
+    <LinkIncremental>true</LinkIncremental>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <OutDir>Release\</OutDir>
+    <IntDir>Release\</IntDir>
+    <LinkIncremental>false</LinkIncremental>
+  </PropertyGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <ClCompile>
+      <Optimization>Disabled</Optimization>
+      <PreprocessorDefinitions>WIN32;_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <MinimalRebuild>true</MinimalRebuild>
+      <BasicRuntimeChecks>EnableFastChecks</BasicRuntimeChecks>
+      <RuntimeLibrary>MultiThreadedDebug</RuntimeLibrary>
+      <PrecompiledHeader />
+      <WarningLevel>Level3</WarningLevel>
+      <DebugInformationFormat>EditAndContinue</DebugInformationFormat>
+    </ClCompile>
+    <Link>
+      <OutputFile>$(OutDir)RayTracer.exe</OutputFile>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+      <ProgramDatabaseFile>$(OutDir)RayTracer.pdb</ProgramDatabaseFile>
+      <SubSystem>Console</SubSystem>
+      <TargetMachine>MachineX86</TargetMachine>
+    </Link>
+    <PostBuildEvent>
+      <Command>Debug\raytracer.exe scene01.yaml</Command>
+    </PostBuildEvent>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <ClCompile>
+      <PreprocessorDefinitions>WIN32;NDEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <RuntimeLibrary>MultiThreaded</RuntimeLibrary>
+      <PrecompiledHeader />
+      <WarningLevel>Level3</WarningLevel>
+      <DebugInformationFormat>ProgramDatabase</DebugInformationFormat>
+    </ClCompile>
+    <Link>
+      <OutputFile>$(OutDir)RayTracer.exe</OutputFile>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+      <SubSystem>Console</SubSystem>
+      <OptimizeReferences>true</OptimizeReferences>
+      <EnableCOMDATFolding>true</EnableCOMDATFolding>
+      <TargetMachine>MachineX86</TargetMachine>
+    </Link>
+  </ItemDefinitionGroup>
+  <ItemGroup>
+    <ClCompile Include="image.cpp" />
+    <ClCompile Include="light.cpp" />
+    <ClCompile Include="lodepng.cpp" />
+    <ClCompile Include="main.cpp" />
+    <ClCompile Include="material.cpp" />
+    <ClCompile Include="raytracer.cpp" />
+    <ClCompile Include="scene.cpp" />
+    <ClCompile Include="sphere.cpp" />
+    <ClCompile Include="triple.cpp" />
+    <ClCompile Include="yaml\aliascontent.cpp" />
+    <ClCompile Include="yaml\content.cpp" />
+    <ClCompile Include="yaml\conversion.cpp" />
+    <ClCompile Include="yaml\emitter.cpp" />
+    <ClCompile Include="yaml\emitterstate.cpp" />
+    <ClCompile Include="yaml\emitterutils.cpp" />
+    <ClCompile Include="yaml\exp.cpp" />
+    <ClCompile Include="yaml\iterator.cpp" />
+    <ClCompile Include="yaml\map.cpp" />
+    <ClCompile Include="yaml\node.cpp" />
+    <ClCompile Include="yaml\null.cpp" />
+    <ClCompile Include="yaml\ostream.cpp" />
+    <ClCompile Include="yaml\parser.cpp" />
+    <ClCompile Include="yaml\parserstate.cpp" />
+    <ClCompile Include="yaml\regex.cpp" />
+    <ClCompile Include="yaml\scalar.cpp" />
+    <ClCompile Include="yaml\scanner.cpp" />
+    <ClCompile Include="yaml\scanscalar.cpp" />
+    <ClCompile Include="yaml\scantoken.cpp" />
+    <ClCompile Include="yaml\sequence.cpp" />
+    <ClCompile Include="yaml\simplekey.cpp" />
+    <ClCompile Include="yaml\stream.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="image.h" />
+    <ClInclude Include="light.h" />
+    <ClInclude Include="lodepng.h" />
+    <ClInclude Include="material.h" />
+    <ClInclude Include="object.h" />
+    <ClInclude Include="raytracer.h" />
+    <ClInclude Include="scene.h" />
+    <ClInclude Include="sphere.h" />
+    <ClInclude Include="triple.h" />
+    <ClInclude Include="yaml\aliascontent.h" />
+    <ClInclude Include="yaml\content.h" />
+    <ClInclude Include="yaml\conversion.h" />
+    <ClInclude Include="yaml\crt.h" />
+    <ClInclude Include="yaml\emitter.h" />
+    <ClInclude Include="yaml\emittermanip.h" />
+    <ClInclude Include="yaml\emitterstate.h" />
+    <ClInclude Include="yaml\emitterutils.h" />
+    <ClInclude Include="yaml\exceptions.h" />
+    <ClInclude Include="yaml\exp.h" />
+    <ClInclude Include="yaml\indentation.h" />
+    <ClInclude Include="yaml\iterator.h" />
+    <ClInclude Include="yaml\iterpriv.h" />
+    <ClInclude Include="yaml\ltnode.h" />
+    <ClInclude Include="yaml\map.h" />
+    <ClInclude Include="yaml\mark.h" />
+    <ClInclude Include="yaml\node.h" />
+    <ClInclude Include="yaml\nodeimpl.h" />
+    <ClInclude Include="yaml\nodereadimpl.h" />
+    <ClInclude Include="yaml\nodeutil.h" />
+    <ClInclude Include="yaml\noncopyable.h" />
+    <ClInclude Include="yaml\null.h" />
+    <ClInclude Include="yaml\ostream.h" />
+    <ClInclude Include="yaml\parser.h" />
+    <ClInclude Include="yaml\parserstate.h" />
+    <ClInclude Include="yaml\regex.h" />
+    <ClInclude Include="yaml\regeximpl.h" />
+    <ClInclude Include="yaml\scalar.h" />
+    <ClInclude Include="yaml\scanner.h" />
+    <ClInclude Include="yaml\scanscalar.h" />
+    <ClInclude Include="yaml\sequence.h" />
+    <ClInclude Include="yaml\setting.h" />
+    <ClInclude Include="yaml\stlemitter.h" />
+    <ClInclude Include="yaml\stream.h" />
+    <ClInclude Include="yaml\streamcharsource.h" />
+    <ClInclude Include="yaml\stringsource.h" />
+    <ClInclude Include="yaml\token.h" />
+    <ClInclude Include="yaml\yaml.h" />
+  </ItemGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
+  <ImportGroup Label="ExtensionTargets">
+  </ImportGroup>
+</Project>

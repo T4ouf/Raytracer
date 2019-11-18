@@ -1,0 +1,24 @@
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 15
+VisualStudioVersion = 15.0.28307.421
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "RayTracer", "RayTracer.vcxproj", "{7FCED6CA-38E1-4F62-B84A-37CEA310A250}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|x86 = Debug|x86
+		Release|x86 = Release|x86
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{7FCED6CA-38E1-4F62-B84A-37CEA310A250}.Debug|x86.ActiveCfg = Debug|Win32
+		{7FCED6CA-38E1-4F62-B84A-37CEA310A250}.Debug|x86.Build.0 = Debug|Win32
+		{7FCED6CA-38E1-4F62-B84A-37CEA310A250}.Release|x86.ActiveCfg = Release|Win32
+		{7FCED6CA-38E1-4F62-B84A-37CEA310A250}.Release|x86.Build.0 = Release|Win32
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {51FC0399-DCA5-4CAA-BB8D-85E9A25274DA}
+	EndGlobalSection
+EndGlobal

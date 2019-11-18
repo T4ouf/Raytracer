@@ -1,0 +1,258 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="Source Files">
+      <UniqueIdentifier>{4FC737F1-C7A5-4376-A066-2A32D752A2FF}</UniqueIdentifier>
+      <Extensions>cpp;c;cxx;def;odl;idl;hpj;bat;asm;asmx</Extensions>
+    </Filter>
+    <Filter Include="Header Files">
+      <UniqueIdentifier>{93995380-89BD-4b04-88EB-625FBE52EBFB}</UniqueIdentifier>
+      <Extensions>h;hpp;hxx;hm;inl;inc;xsd</Extensions>
+    </Filter>
+    <Filter Include="Resource Files">
+      <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
+      <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx</Extensions>
+    </Filter>
+    <Filter Include="yaml">
+      <UniqueIdentifier>{0be98860-5af8-43ae-8619-0e675f343f8e}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="image.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="light.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="lodepng.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="main.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="material.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="raytracer.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="scene.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="sphere.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="triple.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="yaml\aliascontent.cpp">
+      <Filter>yaml</Filter>
+    </ClCompile>
+    <ClCompile Include="yaml\content.cpp">
+      <Filter>yaml</Filter>
+    </ClCompile>
+    <ClCompile Include="yaml\conversion.cpp">
+      <Filter>yaml</Filter>
+    </ClCompile>
+    <ClCompile Include="yaml\emitter.cpp">
+      <Filter>yaml</Filter>
+    </ClCompile>
+    <ClCompile Include="yaml\emitterstate.cpp">
+      <Filter>yaml</Filter>
+    </ClCompile>
+    <ClCompile Include="yaml\emitterutils.cpp">
+      <Filter>yaml</Filter>
+    </ClCompile>
+    <ClCompile Include="yaml\exp.cpp">
+      <Filter>yaml</Filter>
+    </ClCompile>
+    <ClCompile Include="yaml\iterator.cpp">
+      <Filter>yaml</Filter>
+    </ClCompile>
+    <ClCompile Include="yaml\map.cpp">
+      <Filter>yaml</Filter>
+    </ClCompile>
+    <ClCompile Include="yaml\node.cpp">
+      <Filter>yaml</Filter>
+    </ClCompile>
+    <ClCompile Include="yaml\null.cpp">
+      <Filter>yaml</Filter>
+    </ClCompile>
+    <ClCompile Include="yaml\ostream.cpp">
+      <Filter>yaml</Filter>
+    </ClCompile>
+    <ClCompile Include="yaml\parser.cpp">
+      <Filter>yaml</Filter>
+    </ClCompile>
+    <ClCompile Include="yaml\parserstate.cpp">
+      <Filter>yaml</Filter>
+    </ClCompile>
+    <ClCompile Include="yaml\regex.cpp">
+      <Filter>yaml</Filter>
+    </ClCompile>
+    <ClCompile Include="yaml\scalar.cpp">
+      <Filter>yaml</Filter>
+    </ClCompile>
+    <ClCompile Include="yaml\scanner.cpp">
+      <Filter>yaml</Filter>
+    </ClCompile>
+    <ClCompile Include="yaml\scanscalar.cpp">
+      <Filter>yaml</Filter>
+    </ClCompile>
+    <ClCompile Include="yaml\scantoken.cpp">
+      <Filter>yaml</Filter>
+    </ClCompile>
+    <ClCompile Include="yaml\sequence.cpp">
+      <Filter>yaml</Filter>
+    </ClCompile>
+    <ClCompile Include="yaml\simplekey.cpp">
+      <Filter>yaml</Filter>
+    </ClCompile>
+    <ClCompile Include="yaml\stream.cpp">
+      <Filter>yaml</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="image.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="light.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="lodepng.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="material.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="object.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="raytracer.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="scene.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="sphere.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="triple.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="yaml\aliascontent.h">
+      <Filter>yaml</Filter>
+    </ClInclude>
+    <ClInclude Include="yaml\content.h">
+      <Filter>yaml</Filter>
+    </ClInclude>
+    <ClInclude Include="yaml\conversion.h">
+      <Filter>yaml</Filter>
+    </ClInclude>
+    <ClInclude Include="yaml\crt.h">
+      <Filter>yaml</Filter>
+    </ClInclude>
+    <ClInclude Include="yaml\emitter.h">
+      <Filter>yaml</Filter>
+    </ClInclude>
+    <ClInclude Include="yaml\emittermanip.h">
+      <Filter>yaml</Filter>
+    </ClInclude>
+    <ClInclude Include="yaml\emitterstate.h">
+      <Filter>yaml</Filter>
+    </ClInclude>
+    <ClInclude Include="yaml\emitterutils.h">
+      <Filter>yaml</Filter>
+    </ClInclude>
+    <ClInclude Include="yaml\exceptions.h">
+      <Filter>yaml</Filter>
+    </ClInclude>
+    <ClInclude Include="yaml\exp.h">
+      <Filter>yaml</Filter>
+    </ClInclude>
+    <ClInclude Include="yaml\indentation.h">
+      <Filter>yaml</Filter>
+    </ClInclude>
+    <ClInclude Include="yaml\iterator.h">
+      <Filter>yaml</Filter>
+    </ClInclude>
+    <ClInclude Include="yaml\iterpriv.h">
+      <Filter>yaml</Filter>
+    </ClInclude>
+    <ClInclude Include="yaml\ltnode.h">
+      <Filter>yaml</Filter>
+    </ClInclude>
+    <ClInclude Include="yaml\map.h">
+      <Filter>yaml</Filter>
+    </ClInclude>
+    <ClInclude Include="yaml\mark.h">
+      <Filter>yaml</Filter>
+    </ClInclude>
+    <ClInclude Include="yaml\node.h">
+      <Filter>yaml</Filter>
+    </ClInclude>
+    <ClInclude Include="yaml\nodeimpl.h">
+      <Filter>yaml</Filter>
+    </ClInclude>
+    <ClInclude Include="yaml\nodereadimpl.h">
+      <Filter>yaml</Filter>
+    </ClInclude>
+    <ClInclude Include="yaml\nodeutil.h">
+      <Filter>yaml</Filter>
+    </ClInclude>
+    <ClInclude Include="yaml\noncopyable.h">
+      <Filter>yaml</Filter>
+    </ClInclude>
+    <ClInclude Include="yaml\null.h">
+      <Filter>yaml</Filter>
+    </ClInclude>
+    <ClInclude Include="yaml\ostream.h">
+      <Filter>yaml</Filter>
+    </ClInclude>
+    <ClInclude Include="yaml\parser.h">
+      <Filter>yaml</Filter>
+    </ClInclude>
+    <ClInclude Include="yaml\parserstate.h">
+      <Filter>yaml</Filter>
+    </ClInclude>
+    <ClInclude Include="yaml\regex.h">
+      <Filter>yaml</Filter>
+    </ClInclude>
+    <ClInclude Include="yaml\regeximpl.h">
+      <Filter>yaml</Filter>
+    </ClInclude>
+    <ClInclude Include="yaml\scalar.h">
+      <Filter>yaml</Filter>
+    </ClInclude>
+    <ClInclude Include="yaml\scanner.h">
+      <Filter>yaml</Filter>
+    </ClInclude>
+    <ClInclude Include="yaml\scanscalar.h">
+      <Filter>yaml</Filter>
+    </ClInclude>
+    <ClInclude Include="yaml\sequence.h">
+      <Filter>yaml</Filter>
+    </ClInclude>
+    <ClInclude Include="yaml\setting.h">
+      <Filter>yaml</Filter>
+    </ClInclude>
+    <ClInclude Include="yaml\stlemitter.h">
+      <Filter>yaml</Filter>
+    </ClInclude>
+    <ClInclude Include="yaml\stream.h">
+      <Filter>yaml</Filter>
+    </ClInclude>
+    <ClInclude Include="yaml\streamcharsource.h">
+      <Filter>yaml</Filter>
+    </ClInclude>
+    <ClInclude Include="yaml\stringsource.h">
+      <Filter>yaml</Filter>
+    </ClInclude>
+    <ClInclude Include="yaml\token.h">
+      <Filter>yaml</Filter>
+    </ClInclude>
+    <ClInclude Include="yaml\yaml.h">
+      <Filter>yaml</Filter>
+    </ClInclude>
+  </ItemGroup>
+</Project>
