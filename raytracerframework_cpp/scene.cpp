@@ -57,16 +57,30 @@ Color Scene::trace(const Ray &ray)
     *        pow(a,b)           a to the power of b
     ****************************************************/
 
-    Color color = material->color;                  // place holder
+	Vector Ambient = Vector(0.001, 0.001, 0.001);
+	Vector Ld = Vector(0.001, 0.001, 0.001);
 
+	Color color = material->color;                  // place holder
+	Vector Diffuse = Ld;
+	for (auto l : lights) {
+
+		Vector L =  l->position - hit;
+
+		Diffuse = Diffuse * L.dot(N);
+		color = color*Diffuse;
+	}
+
+	//Color color = material->color;
+    
+	//color = N;
     return color;
 }
 
 void Scene::render(Image &img)
 {
-    int w = img.width();
-    int h = img.height();
-    for (int y = 0; y < h; y++) {
+    long long int w = img.width();
+	long long int h = img.height();
+    for (long long int y = 0; y < h; y++) {
         for (int x = 0; x < w; x++) {
             Point pixel(x+0.5, h-1-y+0.5, 0);
             Ray ray(eye, (pixel-eye).normalized());

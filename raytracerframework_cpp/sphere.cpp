@@ -40,20 +40,47 @@ Hit Sphere::intersect(const Ray &ray)
 
     // place holder for actual intersection calculation
 
-    Vector OC = (position - ray.O).normalized();
+   /*Vector OC = (position - ray.O).normalized();
     if (OC.dot(ray.D) < 0.999) {
         return Hit::NO_HIT();
-    }
+    }*/
 
-    double t = 1000;
-	Vector impact = OC - (position - r * (OC.normalized()));
-	std::cout << "Sphere : " << position << '\n';
-	std::cout << "OC : " << OC << '\n';
 
-	t = impact.length();
+	///// https://www.scratchapixel.com/lessons/3d-basic-rendering/minimal-ray-tracer-rendering-simple-shapes/ray-sphere-intersection TO REMOVE !
 
-	std::cout << "OH : " << impact << "\t distance : ";
-	std::cout << t << '\n';
+	//t is the distance from ray's origin to intersection point
+    double t = 0;
+
+	//Vector from ray's origin to center of the sphere
+	Vector L = (position - ray.O);
+
+	//We project L on the ray's direction (and get the total length)
+	double tca = L.dot(ray.D);
+
+	if (tca < 0) {
+		return Hit::NO_HIT();
+	}
+
+	//d is the distance between the sphere's origin and the "inbound part" of the ray (perpendicularly)
+	double d = sqrt( L.length_2() - (tca * tca));
+
+	if (d < 0) {
+		return Hit::NO_HIT();
+	}
+
+	//Normally impossible (but remove some NaN values of thc so we keep it
+	if (d > r) {
+		return Hit::NO_HIT();
+	}
+	
+	//length of the ray that is "inside" the sphere (trigo computation)
+	double thc = sqrt(r * r - d * d);
+
+	//from the total length we remove the part inside the sphere => we get the length until intersection
+	t = tca - thc;
+	//We also compute our vector from ray's origin to the impact point
+	Vector P = (ray.O + (t * ray.D));
+
     /****************************************************
     * RT1.2: NORMAL CALCULATION
     *
@@ -63,7 +90,9 @@ Hit Sphere::intersect(const Ray &ray)
     * Insert calculation of the sphere's normal at the intersection point.
     ****************************************************/
 
-    Vector N /* = ... */;
-
+	//Vector from sphere center to impact point (normal to the surface)
+	Vector CP = P - position;
+	Vector N = (CP).normalized();
+	//Vector N = (Cimpact.normalized() + (ray.O + ray.D * t) + ray.O).normalized();
     return Hit(t,N);
 }
