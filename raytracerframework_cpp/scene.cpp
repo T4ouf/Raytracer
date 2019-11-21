@@ -57,22 +57,56 @@ Color Scene::trace(const Ray &ray)
     *        pow(a,b)           a to the power of b
     ****************************************************/
 
-	Vector Ambient = Vector(0.001, 0.001, 0.001);
+	Vector La = Vector(1,1,1);
 	Vector Ld = Vector(0.001, 0.001, 0.001);
+	Vector Ls = Vector(0.75,0.75,0.75);
+	int specularExponent = 10;
 
-	Color color = material->color;                  // place holder
-	Vector Diffuse = Ld;
+	//Ensure normalization
+	N = N.normalized();
+	V = V.normalized();
+
+	Color color;                  // place holder
+	Vector Diffuse = Ld * material->kd * material->color; //= Ld*Kd
+	Vector Specular = Ls * material->ks; //The specular value doesn't include the object color
+
+	//Compute diffuse and Specular part for each light source
 	for (auto l : lights) {
 
-		Vector L =  l->position - hit;
+		//We compute Light vector
+		Vector L = (l->position - hit);
+		
+		//We compute the incomming ray vector
+		Vector I = (-L).normalized();
 
+		//We compute the reflected ray vector
+		Vector R = I - 2*(N.dot(I))*N;
+		R = R.normalized();
+
+		// if the hitpoint is behind the sphere (aka the light cannot reach it => no diffuse component)
+		if (L.dot(N) < 0) {
+			Diffuse = Diffuse * 0;
+			Specular = Specular * 0;
+			break;
+		}
+		
+		//Otherwhise we compute the diffuse part
 		Diffuse = Diffuse * L.dot(N);
-		color = color*Diffuse;
-	}
+		
+		if (R.dot(V) <= 0) {
+			Specular = Specular * 0;
+			break;
+		}
 
-	//Color color = material->color;
-    
-	//color = N;
+		//we compute the specular component
+		Specular = Specular * pow(R.dot(V), specularExponent);
+
+	}
+	//Compute Ambient part
+	Vector Ambient = material->ka * La * material->color;
+
+	//Phong Shading
+	color = Ambient + Diffuse + Specular;
     return color;
 }
 

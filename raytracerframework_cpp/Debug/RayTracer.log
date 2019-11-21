@@ -2,5 +2,5 @@
   scene.cpp
 c:\users\thomas\desktop\raytracer\raytracerframework_cpp\image.h(122): warning C4244: '=' : conversion de 'double' en 'float', perte possible de données
 c:\users\thomas\desktop\raytracer\raytracerframework_cpp\image.h(123): warning C4244: '=' : conversion de 'double' en 'float', perte possible de données
-c:\users\thomas\desktop\raytracer\raytracerframework_cpp\scene.cpp(89): warning C4244: 'argument' : conversion de '__int64' en 'int', perte possible de données
+c:\users\thomas\desktop\raytracer\raytracerframework_cpp\scene.cpp(121): warning C4244: 'argument' : conversion de '__int64' en 'int', perte possible de données
   RayTracer.vcxproj -> C:\Users\Thomas\Desktop\Raytracer\raytracerframework_cpp\Debug\RayTracer.exe

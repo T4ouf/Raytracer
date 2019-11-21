@@ -40,14 +40,6 @@ Hit Sphere::intersect(const Ray &ray)
 
     // place holder for actual intersection calculation
 
-   /*Vector OC = (position - ray.O).normalized();
-    if (OC.dot(ray.D) < 0.999) {
-        return Hit::NO_HIT();
-    }*/
-
-
-	///// https://www.scratchapixel.com/lessons/3d-basic-rendering/minimal-ray-tracer-rendering-simple-shapes/ray-sphere-intersection TO REMOVE !
-
 	//t is the distance from ray's origin to intersection point
     double t = 0;
 
