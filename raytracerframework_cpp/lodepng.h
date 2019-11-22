@@ -23,6 +23,12 @@ freely, subject to the following restrictions:
     distribution.
 */
 
+//---------------------------------------------------//
+//		ADVANCED GRAPHICS ASSIGNMENT (ET5 info)		 //
+//              THOMAS VON ASCHEBERG                 //
+//					 MY-LINH HO		                 //
+//---------------------------------------------------//
+
 #ifndef LODEPNG_H
 #define LODEPNG_H
 

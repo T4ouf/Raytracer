@@ -1,6 +1,6 @@
 ﻿cl : Ligne de commande warning D9035: l'option 'Gm' est déconseillée et sera supprimée dans une version ultérieure
   scene.cpp
-c:\users\thomas\desktop\raytracer\raytracerframework_cpp\image.h(122): warning C4244: '=' : conversion de 'double' en 'float', perte possible de données
-c:\users\thomas\desktop\raytracer\raytracerframework_cpp\image.h(123): warning C4244: '=' : conversion de 'double' en 'float', perte possible de données
-c:\users\thomas\desktop\raytracer\raytracerframework_cpp\scene.cpp(121): warning C4244: 'argument' : conversion de '__int64' en 'int', perte possible de données
+c:\users\thomas\desktop\raytracer\raytracerframework_cpp\image.h(128): warning C4244: '=' : conversion de 'double' en 'float', perte possible de données
+c:\users\thomas\desktop\raytracer\raytracerframework_cpp\image.h(129): warning C4244: '=' : conversion de 'double' en 'float', perte possible de données
+c:\users\thomas\desktop\raytracer\raytracerframework_cpp\scene.cpp(128): warning C4244: 'argument' : conversion de '__int64' en 'int', perte possible de données
   RayTracer.vcxproj -> C:\Users\Thomas\Desktop\Raytracer\raytracerframework_cpp\Debug\RayTracer.exe

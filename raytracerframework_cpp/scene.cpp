@@ -14,6 +14,12 @@
 //  http://isgwww.cs.uni-magdeburg.de/graphik/lehre/cg2/projekt/rtprojekt.html 
 //
 
+//---------------------------------------------------//
+//		ADVANCED GRAPHICS ASSIGNMENT (ET5 info)		 //
+//              THOMAS VON ASCHEBERG                 //
+//					 MY-LINH HO		                 //
+//---------------------------------------------------//
+
 #include "scene.h"
 #include "material.h"
 
@@ -57,10 +63,9 @@ Color Scene::trace(const Ray &ray)
     *        pow(a,b)           a to the power of b
     ****************************************************/
 
-	Vector La = Vector(1,1,1);
+	Vector La = Vector(0.5,0.5,0.5);
 	Vector Ld = Vector(0.001, 0.001, 0.001);
 	Vector Ls = Vector(0.75,0.75,0.75);
-	int specularExponent = 10;
 
 	//Ensure normalization
 	N = N.normalized();
@@ -99,7 +104,7 @@ Color Scene::trace(const Ray &ray)
 		}
 
 		//we compute the specular component
-		Specular = Specular * pow(R.dot(V), specularExponent);
+		Specular = Specular * pow(R.dot(V), material->n);
 
 	}
 	//Compute Ambient part

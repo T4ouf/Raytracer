@@ -14,11 +14,17 @@
 //  http://isgwww.cs.uni-magdeburg.de/graphik/lehre/cg2/projekt/rtprojekt.html 
 //
 
+//---------------------------------------------------//
+//		ADVANCED GRAPHICS ASSIGNMENT (ET5 info)		 //
+//              THOMAS VON ASCHEBERG                 //
+//					 MY-LINH HO		                 //
+//---------------------------------------------------//
+
 #include "raytracer.h"
 
 int main(int argc, char *argv[])
 {
-    cout << "Introduction to Computer Graphics - Raytracer" << endl << endl;
+    cout << "Advanced Graphics - Raytracer" << endl << endl;
     if (argc < 2 || argc > 3) {
         cerr << "Usage: " << argv[0] << " in-file [out-file.png]" << endl;
         return 1;

@@ -12,6 +12,12 @@
 //  http://isgwww.cs.uni-magdeburg.de/graphik/lehre/cg2/projekt/rtprojekt.html 
 //
 
+//---------------------------------------------------//
+//		ADVANCED GRAPHICS ASSIGNMENT (ET5 info)		 //
+//              THOMAS VON ASCHEBERG                 //
+//					 MY-LINH HO		                 //
+//---------------------------------------------------//
+
 #ifndef IMAGE_H_IOLFQARK
 #define IMAGE_H_IOLFQARK
 
