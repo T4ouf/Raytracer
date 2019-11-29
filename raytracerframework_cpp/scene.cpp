@@ -63,56 +63,80 @@ Color Scene::trace(const Ray &ray)
     *        pow(a,b)           a to the power of b
     ****************************************************/
 
-	Vector La = Vector(0.5,0.5,0.5);
-	Vector Ld = Vector(0.001, 0.001, 0.001);
-	Vector Ls = Vector(0.75,0.75,0.75);
+	Color color = Color(0,0,0); //pixel color
 
-	//Ensure normalization
-	N = N.normalized();
-	V = V.normalized();
+	if (this->type == COLORED) {
 
-	Color color;                  // place holder
-	Vector Diffuse = Ld * material->kd * material->color; //= Ld*Kd
-	Vector Specular = Ls * material->ks; //The specular value doesn't include the object color
+		//Ensure normalization
+		N = N.normalized();
+		V = V.normalized();
+	
+		Vector Diffuse = Color(0, 0, 0);
+		Vector Specular= Color(0, 0, 0); //The specular value doesn't include the object color
+		Vector Ambient = material->ka * material->color;
 
-	//Compute diffuse and Specular part for each light source
-	for (auto l : lights) {
+		//Compute diffuse and Specular part for each light source
+		for (auto l : lights) {
 
-		//We compute Light vector
-		Vector L = (l->position - hit);
-		
-		//We compute the incomming ray vector
-		Vector I = (-L).normalized();
+			//We compute Light vector
+			Vector L = (l->position - hit);
+			double diffuseLightAttenuation = L.dot(N) / L.length();
 
-		//We compute the reflected ray vector
-		Vector R = I - 2*(N.dot(I))*N;
-		R = R.normalized();
+			//We compute the incomming ray vector
+			Vector I = (-L).normalized();
 
-		// if the hitpoint is behind the sphere (aka the light cannot reach it => no diffuse component)
-		if (L.dot(N) < 0) {
-			Diffuse = Diffuse * 0;
-			Specular = Specular * 0;
-			break;
+			//We compute the reflected ray vector
+			Vector R = I - 2 * (N.dot(I)) * N;
+			R = R.normalized();
+
+			// if the hitpoint is behind the sphere (aka the light cannot reach it => no diffuse component)
+			if (L.dot(N) < 0) {
+				Diffuse = Diffuse * 0;
+				Specular = Specular * 0;
+				continue;
+			}
+
+			//Otherwhise we compute the diffuse part
+			Diffuse += material->kd * material->color * L.normalized().dot(N.normalized()) * l->color;
+
+			if (R.dot(V) <= 0) {
+				Specular = Specular * 0;
+				continue;
+			}
+
+			//we compute the specular component
+			Specular += material->ks * pow(R.dot(V), material->n) * l->color;
+			Ambient = Ambient * l->color;
 		}
-		
-		//Otherwhise we compute the diffuse part
-		Diffuse = Diffuse * L.dot(N);
-		
-		if (R.dot(V) <= 0) {
-			Specular = Specular * 0;
-			break;
-		}
 
-		//we compute the specular component
-		Specular = Specular * pow(R.dot(V), material->n);
+		//Phong Shading
+		color += Ambient + Diffuse + Specular;
 
 	}
-	//Compute Ambient part
-	Vector Ambient = material->ka * La * material->color;
+	else if (this->type == NORMALS) {
+		Color normals = (N + 1.0f) / 2.0f;
+		color = normals;
+	}
+	else if (this->type == ZBUFFER) {
 
-	//Phong Shading
-	color = Ambient + Diffuse + Specular;
-    return color;
+		double farClipping	= -100;
+		double closeClipping= 500;
+
+		//distance between the clipping planes
+		double distance = sqrt((farClipping - closeClipping) * (farClipping - closeClipping));
+
+		double I = (hit - eye).length();
+		double colorValue = (1 - (I - closeClipping) / (distance));
+
+		color = Color(colorValue, colorValue, colorValue);
+		
+	}
+	else {
+		cerr << "UNSUPPORTED SCENE TYPE : " << this->type << " !\n";
+		exit(EXIT_FAILURE);
+	}
+		
+	return color;
 }
 
 void Scene::render(Image &img)
@@ -143,4 +167,8 @@ void Scene::addLight(Light *l)
 void Scene::setEye(Triple e)
 {
     eye = e;
+}
+
+void Scene::setRaytracingType(raytracingType r) {
+	this->type = r;
 }

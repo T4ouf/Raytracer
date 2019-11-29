@@ -21,6 +21,8 @@
 #include "raytracer.h"
 #include "object.h"
 #include "sphere.h"
+#include "triangle.h"
+#include "Plane.h"
 #include "material.h"
 #include "light.h"
 #include "image.h"
@@ -50,6 +52,13 @@ Triple parseTriple(const YAML::Node& node)
     return t;
 }
 
+raytracingType Raytracer::parseType(const YAML::Node& node){
+	int r=0;
+	node >> r;
+	return (raytracingType)r;
+}
+
+
 Material* Raytracer::parseMaterial(const YAML::Node& node)
 {
     Material *m = new Material();
@@ -75,6 +84,28 @@ Object* Raytracer::parseObject(const YAML::Node& node)
         Sphere *sphere = new Sphere(pos,r);		
         returnObject = sphere;
     }
+	else if (objectType == "triangle") {
+		Point p1;
+		Point p2;
+		Point p3;
+		node["p1"] >> p1;
+		node["p2"] >> p2;
+		node["p3"] >> p3;
+	
+		Triangle* triangle = new Triangle(p1,p2,p3);
+		returnObject = triangle;
+	}
+	else if (objectType == "plane") {
+		Point p1;
+		Point p2;
+		Point p3;
+		node["p1"] >> p1;
+		node["p2"] >> p2;
+		node["p3"] >> p3;
+
+		Plane* plane = new Plane(p1, p2, p3);
+		returnObject = plane;
+	}
 
     if (returnObject) {
         // read the material and attach to object
@@ -113,9 +144,11 @@ bool Raytracer::readScene(const std::string& inputFilename)
         if (parser) {
             YAML::Node doc;
             parser.GetNextDocument(doc);
-
+			
             // Read scene configuration options
             scene->setEye(parseTriple(doc["Eye"]));
+
+			scene->setRaytracingType(parseType(doc["RaytracingType"]));
 
             // Read and parse the scene objects
             const YAML::Node& sceneObjects = doc["Objects"];

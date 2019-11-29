@@ -111,6 +111,12 @@
     <ClCompile Include="yaml\stream.cpp">
       <Filter>yaml</Filter>
     </ClCompile>
+    <ClCompile Include="triangle.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Plane.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="image.h">
@@ -253,6 +259,12 @@
     </ClInclude>
     <ClInclude Include="yaml\yaml.h">
       <Filter>yaml</Filter>
+    </ClInclude>
+    <ClInclude Include="triangle.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Plane.h">
+      <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

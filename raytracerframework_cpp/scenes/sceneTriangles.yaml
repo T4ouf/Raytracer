@@ -1,0 +1,32 @@
+---
+#  scene02
+
+#3 possible types : Colored = 0, Normals = 1, Z-Buffer = 2
+RaytracingType: 0
+
+Eye: [200,200,1000]  
+
+Lights:
+- position: [-1000,600,500]
+  color: [1.0,1.0,1.0]
+
+Objects:
+- type: triangle
+  p1: [290,230,-150]
+  p2: [340,230,-150]
+  p3: [315,280,-150]
+  material: # blue
+    color: [0.0,0.0,1.0]
+    ka: 0.2
+    kd: 0.7
+    ks: 0.5
+    n: 64
+- type: sphere
+  position: [180,180,-800]
+  radius: 300
+  material: 
+    color: [1.0,0.5,0.0]
+    ka: 0.1
+    kd: 0.5
+    ks: 0.3
+    n: 32

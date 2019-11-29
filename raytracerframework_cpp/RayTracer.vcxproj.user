@@ -2,7 +2,13 @@
 <Project ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <LocalDebuggerDebuggerType>Auto</LocalDebuggerDebuggerType>
-    <LocalDebuggerCommandArguments>scene01.yaml</LocalDebuggerCommandArguments>
+    <LocalDebuggerCommandArguments>scenes/myScene.yaml</LocalDebuggerCommandArguments>
     <DebuggerFlavor>WindowsLocalDebugger</DebuggerFlavor>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <LocalDebuggerCommand>
+    </LocalDebuggerCommand>
+    <DebuggerFlavor>WindowsLocalDebugger</DebuggerFlavor>
+    <LocalDebuggerCommandArguments>scene01_z.yaml</LocalDebuggerCommandArguments>
   </PropertyGroup>
 </Project>

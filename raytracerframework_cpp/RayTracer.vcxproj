@@ -95,9 +95,11 @@
     <ClCompile Include="lodepng.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="material.cpp" />
+    <ClCompile Include="Plane.cpp" />
     <ClCompile Include="raytracer.cpp" />
     <ClCompile Include="scene.cpp" />
     <ClCompile Include="sphere.cpp" />
+    <ClCompile Include="triangle.cpp" />
     <ClCompile Include="triple.cpp" />
     <ClCompile Include="yaml\aliascontent.cpp" />
     <ClCompile Include="yaml\content.cpp" />
@@ -128,9 +130,11 @@
     <ClInclude Include="lodepng.h" />
     <ClInclude Include="material.h" />
     <ClInclude Include="object.h" />
+    <ClInclude Include="Plane.h" />
     <ClInclude Include="raytracer.h" />
     <ClInclude Include="scene.h" />
     <ClInclude Include="sphere.h" />
+    <ClInclude Include="triangle.h" />
     <ClInclude Include="triple.h" />
     <ClInclude Include="yaml\aliascontent.h" />
     <ClInclude Include="yaml\content.h" />

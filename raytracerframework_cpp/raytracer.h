@@ -33,6 +33,7 @@ private:
     Scene *scene;
 
     // Couple of private functions for parsing YAML nodes
+	raytracingType Raytracer::parseType(const YAML::Node& node);
     Material* parseMaterial(const YAML::Node& node);
     Object* parseObject(const YAML::Node& node);
     Light* parseLight(const YAML::Node& node);
