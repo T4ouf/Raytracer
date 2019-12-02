@@ -1,2 +1,2 @@
-#TargetFrameworkVersion=v4.0:PlatformToolSet=v142:EnableManagedIncrementalBuild=false:VCToolArchitecture=Native32Bit:WindowsTargetPlatformVersion=10.0
-Debug|Win32|C:\Users\homy-\OneDrive\Bureau\Pops\ET5\Advanced Computer Graphics\Raytracer\raytracerframework_cpp\|
+#TargetFrameworkVersion=v4.0:PlatformToolSet=v141:EnableManagedIncrementalBuild=false:VCToolArchitecture=Native32Bit:WindowsTargetPlatformVersion=10.0.18362.0
+Debug|Win32|C:\Users\Thomas\Desktop\Raytracer\raytracerframework_cpp\|
