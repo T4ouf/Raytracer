@@ -1,9 +1,1 @@
-﻿cl : Ligne de commande warning D9035: l'option 'Gm' est déconseillée et sera supprimée dans une version ultérieure
-  triangle.cpp
-  raytracer.cpp
-c:\users\thomas\desktop\raytracer\raytracerframework_cpp\image.h(128): warning C4244: '=' : conversion de 'double' en 'float', perte possible de données
-c:\users\thomas\desktop\raytracer\raytracerframework_cpp\image.h(129): warning C4244: '=' : conversion de 'double' en 'float', perte possible de données
-  Plane.cpp
-  Génération de code en cours...
-image.obj : warning LNK4075: ' /EDITANDCONTINUE' ignorÚ Ó cause de la spÚcification '/SAFESEH'
-  RayTracer.vcxproj -> C:\Users\Thomas\Desktop\Raytracer\raytracerframework_cpp\Debug\RayTracer.exe
+﻿  RayTracer.vcxproj -> C:\Users\homy-\OneDrive\Bureau\Pops\ET5\Advanced Computer Graphics\Raytracer\raytracerframework_cpp\Debug\RayTracer.exe
