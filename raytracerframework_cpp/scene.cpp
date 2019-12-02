@@ -23,6 +23,32 @@
 #include "scene.h"
 #include "material.h"
 
+bool Scene::hiddenSurface(const Ray &ray, Light& l) {
+	// Find hit object and distance
+	Hit min_hit(std::numeric_limits<double>::infinity(), Vector());
+	Object *obj = NULL;
+	for (unsigned int i = 0; i < objects.size(); ++i) {
+		Hit hit(objects[i]->intersect(ray));
+		if (hit.t < min_hit.t && hit.t>0) {
+			min_hit = hit;
+			obj = objects[i];
+		}
+	}
+	   
+	Point hit = ray.at(min_hit.t);                 //the hit point
+
+	double distObj = (hit-ray.O).length();
+	double distLight = (l.position - ray.O).length();
+
+	if (distObj < distLight) {
+		return true;
+	}
+
+	return false;
+
+}
+
+
 Color Scene::trace(const Ray &ray)
 {
     // Find hit object and distance
@@ -76,11 +102,11 @@ Color Scene::trace(const Ray &ray)
 		Vector Ambient = material->ka * material->color;
 
 		//Compute diffuse and Specular part for each light source
+		/*
 		for (auto l : lights) {
 
 			//We compute Light vector
 			Vector L = (l->position - hit);
-			double diffuseLightAttenuation = L.dot(N) / L.length();
 
 			//We compute the incomming ray vector
 			Vector I = (-L).normalized();
@@ -89,28 +115,56 @@ Color Scene::trace(const Ray &ray)
 			Vector R = I - 2 * (N.dot(I)) * N;
 			R = R.normalized();
 
-			// if the hitpoint is behind the sphere (aka the light cannot reach it => no diffuse component)
-			if (L.dot(N) < 0) {
-				Diffuse = Diffuse * 0;
-				Specular = Specular * 0;
-				continue;
+			Ray shadowRay = Ray(hit, L);
+			bool shadowPresence = hiddenSurface(shadowRay, *l);
+			
+			if (!shadowPresence) {
+				// if the hitpoint is behind the sphere (aka the light cannot reach it => no diffuse component)
+				if (L.dot(N) < 0) {
+					Diffuse = Diffuse * 0;
+					Specular = Specular * 0;
+					continue;
+				}
+
+				//Otherwhise we compute the diffuse part
+				Diffuse += material->kd * material->color * L.normalized().dot(N.normalized()) * l->color;
+
+				if (R.dot(V) <= 0) {
+					Specular = Specular * 0;
+					continue;
+				}
+
+				//we compute the specular component
+				Specular += material->ks * pow(R.dot(V), material->n) * l->color;
+
 			}
-
-			//Otherwhise we compute the diffuse part
-			Diffuse += material->kd * material->color * L.normalized().dot(N.normalized()) * l->color;
-
-			if (R.dot(V) <= 0) {
-				Specular = Specular * 0;
-				continue;
-			}
-
-			//we compute the specular component
-			Specular += material->ks * pow(R.dot(V), material->n) * l->color;
+			
 			Ambient = Ambient * l->color;
 		}
 
 		//Phong Shading
 		color += Ambient + Diffuse + Specular;
+		*/
+		for (int i = 0; i < lights.size(); i++) {
+			Vector L = lights[i]->position - hit;
+			L = L.normalized();
+			Vector R = 2 * (N.dot(L))*N - L; //modify to the symetry of L
+
+			//adding the ambiant component
+			color += material->ka * material->color;
+
+				//adding the diffuse component
+				auto I = L.dot(N) / (L.length()*N.length());
+				if (L.dot(N) > 0.0 && !hiddenSurface(Ray(hit, L), *lights[i]))
+					color += material->kd * lights[i]->color *I * material->color;
+
+				// adding the specular componenent
+				if (R.dot(V) > 0.0 && !hiddenSurface(Ray(hit, L), *lights[i]))
+					color += material->ks * pow((R.dot(V)), material->n) * lights[i]->color;
+
+				// adding the reflection
+				//color += hiddenSurface(ray) * material->ks;
+		}
 
 	}
 	else if (this->type == NORMALS) {

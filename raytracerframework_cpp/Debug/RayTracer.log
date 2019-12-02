@@ -1,9 +1,7 @@
 ﻿cl : Ligne de commande warning D9035: l'option 'Gm' est déconseillée et sera supprimée dans une version ultérieure
-  triangle.cpp
-  raytracer.cpp
-c:\users\thomas\desktop\raytracer\raytracerframework_cpp\image.h(128): warning C4244: '=' : conversion de 'double' en 'float', perte possible de données
-c:\users\thomas\desktop\raytracer\raytracerframework_cpp\image.h(129): warning C4244: '=' : conversion de 'double' en 'float', perte possible de données
-  Plane.cpp
-  Génération de code en cours...
-image.obj : warning LNK4075: ' /EDITANDCONTINUE' ignorÚ Ó cause de la spÚcification '/SAFESEH'
-  RayTracer.vcxproj -> C:\Users\Thomas\Desktop\Raytracer\raytracerframework_cpp\Debug\RayTracer.exe
+  scene.cpp
+c:\users\tvonasc\desktop\advanced_graphics\raytracer\raytracerframework_cpp\image.h(128): warning C4244: '=' : conversion de 'double' en 'float', perte possible de données
+c:\users\tvonasc\desktop\advanced_graphics\raytracer\raytracerframework_cpp\image.h(129): warning C4244: '=' : conversion de 'double' en 'float', perte possible de données
+c:\users\tvonasc\desktop\advanced_graphics\raytracer\raytracerframework_cpp\scene.cpp(148): warning C4018: '<' : incompatibilité signed/unsigned
+c:\users\tvonasc\desktop\advanced_graphics\raytracer\raytracerframework_cpp\scene.cpp(206): warning C4244: 'argument' : conversion de '__int64' en 'int', perte possible de données
+  RayTracer.vcxproj -> C:\Users\tvonasc\Desktop\Advanced_Graphics\Raytracer\raytracerframework_cpp\Debug\RayTracer.exe

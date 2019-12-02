@@ -52,6 +52,7 @@ public:
 	void setRaytracingType(string r);
     unsigned int getNumObjects() { return objects.size(); }
     unsigned int getNumLights() { return lights.size(); }
+	bool hiddenSurface(const Ray &ray, Light& l);
 };
 
 #endif /* end of include guard: SCENE_H_KNBLQLP6 */
