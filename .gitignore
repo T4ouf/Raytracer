@@ -30,3 +30,11 @@
 *.exe
 *.out
 *.app
+
+*.png
+
+Debug/
+.vs/
+Errors/
+Release/
+_old/
