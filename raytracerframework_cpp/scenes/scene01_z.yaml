@@ -17,6 +17,8 @@ RaytracingType: 2
 
 Eye: [200,200,1000]  
 
+Shadows: 0
+
 Lights:
 - position: [-200,600,1500]
   color: [1.0,1.0,1.0]

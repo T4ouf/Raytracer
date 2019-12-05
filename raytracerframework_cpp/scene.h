@@ -42,6 +42,7 @@ private:
     std::vector<Light*> lights;
     Triple eye;
 	raytracingType type;
+	bool shadowComputation = false; //shadowComputation means : Compute shadows = true; don't compute = false
 public:
     Color trace(const Ray &ray);
     void render(Image &img);
@@ -50,9 +51,12 @@ public:
     void setEye(Triple e);
 	void setRaytracingType(raytracingType r);
 	void setRaytracingType(string r);
+	void setShadowBool(bool shadow);
     unsigned int getNumObjects() { return objects.size(); }
     unsigned int getNumLights() { return lights.size(); }
 	bool hiddenSurface(const Ray &ray, Light& l);
+	Color reflection(const Ray& ray, int recursionNumber);
+
 };
 
 #endif /* end of include guard: SCENE_H_KNBLQLP6 */

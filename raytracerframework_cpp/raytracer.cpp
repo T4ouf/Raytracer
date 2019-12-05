@@ -58,6 +58,12 @@ raytracingType Raytracer::parseType(const YAML::Node& node){
 	return (raytracingType)r;
 }
 
+bool Raytracer::parseShadow(const YAML::Node& node) {
+	bool r = false;
+	node >> r;
+	return r;
+}
+
 
 Material* Raytracer::parseMaterial(const YAML::Node& node)
 {
@@ -145,10 +151,12 @@ bool Raytracer::readScene(const std::string& inputFilename)
             YAML::Node doc;
             parser.GetNextDocument(doc);
 			
+			scene->setRaytracingType(parseType(doc["RaytracingType"]));
+
             // Read scene configuration options
             scene->setEye(parseTriple(doc["Eye"]));
 
-			scene->setRaytracingType(parseType(doc["RaytracingType"]));
+			scene->setShadowBool(parseType(doc["Shadows"]));
 
             // Read and parse the scene objects
             const YAML::Node& sceneObjects = doc["Objects"];
