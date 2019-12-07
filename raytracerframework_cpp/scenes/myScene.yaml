@@ -4,6 +4,7 @@ RaytracingType: 0
 Eye: [0,500,1500]
 
 Shadows: 0
+MaxRecursionDepth: 0
 
 Lights:
 - position: [-300,700,3000]

@@ -64,6 +64,12 @@ bool Raytracer::parseShadow(const YAML::Node& node) {
 	return r;
 }
 
+int Raytracer::parseReflectionDepth(const YAML::Node& node) {
+	int r = 0;
+	node >> r;
+	return r;
+}
+
 
 Material* Raytracer::parseMaterial(const YAML::Node& node)
 {
@@ -157,6 +163,8 @@ bool Raytracer::readScene(const std::string& inputFilename)
             scene->setEye(parseTriple(doc["Eye"]));
 
 			scene->setShadowBool(parseType(doc["Shadows"]));
+
+			scene->setMaxRecursion(parseReflectionDepth(doc["MaxRecursionDepth"]));
 
             // Read and parse the scene objects
             const YAML::Node& sceneObjects = doc["Objects"];

@@ -48,7 +48,12 @@ bool Scene::hiddenSurface(const Ray &ray, Light& l) {
 
 }
 
-Color Scene::reflection(const Ray& ray, int recursionNumber) {
+Color Scene::reflection(const Ray& ray, int recursionLimit) {
+
+	//No reflection
+	if (recursionLimit == 0) {
+		return Color(0, 0, 0);
+	}
 
 	// Find hit object and distance
 	Hit min_hit(std::numeric_limits<double>::infinity(), Vector());
@@ -61,14 +66,32 @@ Color Scene::reflection(const Ray& ray, int recursionNumber) {
 		}
 	}
 
-	Point hit = ray.at(min_hit.t);                 //the hit point
+	//No reflection because no hit point
+	if (obj == NULL) {
+		return Color(0, 0, 0);
+	}
 
-	return Color(0,0,0);
+	Point hitPoint = ray.at(min_hit.t);                 //the hit point
+
+	/*double distance = sqrt( (hitPoint.x - ray.O.x) * (hitPoint.x - ray.O.x) +
+							(hitPoint.y - ray.O.y) * (hitPoint.y - ray.O.y) +
+							(hitPoint.z - ray.O.z) * (hitPoint.z - ray.O.z));
+							*/
+	if (recursionLimit==1) {
+		//We compute the reflected ray vector
+		Vector R = (2 * (min_hit.N.dot(-ray.D)) * min_hit.N + ray.D).normalized();
+		return trace(Ray(hitPoint,R),0);
+	}
+	else {
+		//We compute the reflected ray vector
+		Vector R = (2 * (min_hit.N.dot(-ray.D)) * min_hit.N + ray.D).normalized();
+		return obj->material->color + obj->material->ks * reflection(Ray(hitPoint,R), recursionLimit-1);
+	
+	}
 }
 
 
-Color Scene::trace(const Ray &ray)
-{
+Color Scene::trace(const Ray &ray, int recurDepth){
     // Find hit object and distance
     Hit min_hit(std::numeric_limits<double>::infinity(),Vector());
     Object *obj = NULL;
@@ -149,8 +172,24 @@ Color Scene::trace(const Ray &ray)
 			if (R.dot(V) > 0.0 && diffSpecOK) {
 				color += material->ks * pow((R.dot(V)), material->n) * l->color;
 			}
-		
 		}
+
+
+		//We compute the reflected ray vector
+		/*Vector reflectedRay = (2 * (min_hit.N.dot(-ray.D)) * min_hit.N + ray.D).normalized();
+		color += reflection(Ray(hit, reflectedRay.normalized()), reflectionNumber) * obj->material->ks;
+		*/
+
+		if (recurDepth < maxRecurDepth - 1) {
+			Vector R2 = -2 * (N.dot(V)) * N + V;
+			R2 = R2.normalized();
+			Color addedColor = trace(Ray(hit, -R2), recurDepth + 1);
+			color += material->ks * addedColor;
+		}
+		if (recurDepth >= maxRecurDepth - 1)
+			color += Color(0.0, 0.0, 0.0);
+
+
 
 	}
 	else if (this->type == NORMALS) {
@@ -187,7 +226,7 @@ void Scene::render(Image &img)
         for (int x = 0; x < w; x++) {
             Point pixel(x+0.5, h-1-y+0.5, 0);
             Ray ray(eye, (pixel-eye).normalized());
-            Color col = trace(ray);
+            Color col = trace(ray,0);
             col.clamp();
             img(x,y) = col;
         }
@@ -215,4 +254,8 @@ void Scene::setRaytracingType(raytracingType r) {
 
 void Scene::setShadowBool(bool shadow) {
 	this->shadowComputation = shadow; 
+}
+
+void Scene::setMaxRecursion(int recursionLimit) {
+	this->maxRecurDepth = recursionLimit;
 }

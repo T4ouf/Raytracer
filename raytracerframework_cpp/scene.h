@@ -43,8 +43,11 @@ private:
     Triple eye;
 	raytracingType type;
 	bool shadowComputation = false; //shadowComputation means : Compute shadows = true; don't compute = false
+
+	int maxRecurDepth;
+
 public:
-    Color trace(const Ray &ray);
+    Color trace(const Ray &ray, int recurDepth);
     void render(Image &img);
     void addObject(Object *o);
     void addLight(Light *l);
@@ -52,10 +55,11 @@ public:
 	void setRaytracingType(raytracingType r);
 	void setRaytracingType(string r);
 	void setShadowBool(bool shadow);
+	void setMaxRecursion(int recursionLimit);
     unsigned int getNumObjects() { return objects.size(); }
     unsigned int getNumLights() { return lights.size(); }
 	bool hiddenSurface(const Ray &ray, Light& l);
-	Color reflection(const Ray& ray, int recursionNumber);
+	Color reflection(const Ray& ray, int recursionLimit);
 
 };
 
