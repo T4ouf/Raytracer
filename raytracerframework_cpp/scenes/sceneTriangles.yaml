@@ -4,10 +4,10 @@
 #3 possible types : Colored = 0, Normals = 1, Z-Buffer = 2
 RaytracingType: 0
 
-Eye: [200,200,1000]  
+Eye: [200,200,1500]  
 
-Shadows: 0
-MaxRecursionDepth: 0
+Shadows: 1
+MaxRecursionDepth: 2
 
 Lights:
 - position: [-1000,600,500]
@@ -18,11 +18,31 @@ Objects:
   p1: [290,230,-150]
   p2: [340,230,-150]
   p3: [315,280,-150]
-  material: # blue
-    color: [0.0,0.0,1.0]
+  material: # gold
+    color: [1.0,0.84,0.0]
     ka: 0.2
     kd: 0.7
-    ks: 0.5
+    ks: 0.9
+    n: 64
+- type: triangle
+  p1: [240,200,0]
+  p2: [300,200,0]
+  p3: [275,230,0]
+  material: # gold
+    color: [1.0,0.84,0.0]
+    ka: 0.2
+    kd: 0.7
+    ks: 0.9
+    n: 64
+- type: triangle
+  p1: [242,320,-50]
+  p2: [292,320,-50]
+  p3: [262,350,-50]
+  material: # gold
+    color: [1.0,0.84,0.0]
+    ka: 0.2
+    kd: 0.7
+    ks: 0.9
     n: 64
 - type: sphere
   position: [180,180,-800]
@@ -33,3 +53,184 @@ Objects:
     kd: 0.5
     ks: 0.3
     n: 32
+- type: sphere
+  position: [260,320,-420]
+  radius: 25
+  material: 
+    color: [1.0,0.85,0.0]
+    ka: 0.1
+    kd: 0.5
+    ks: 0.7
+    n: 32    
+- type: sphere
+  position: [220,350,-397]
+  radius: 21
+  material: 
+    color: [1.0,0.85,0.0]
+    ka: 0.1
+    kd: 0.5
+    ks: 0.7
+    n: 32 
+- type: sphere
+  position: [180,320,-414]
+  radius: 18
+  material: 
+    color: [1.0,0.85,0.0]
+    ka: 0.1
+    kd: 0.5
+    ks: 0.7
+    n: 32  
+- type: sphere
+  position: [260,150,-430]
+  radius: 20
+  material: 
+    color: [1.0,0.85,0.0]
+    ka: 0.1
+    kd: 0.5
+    ks: 0.7
+    n: 32    
+- type: sphere
+  position: [220,100,-354]
+  radius: 22
+  material: 
+    color: [1.0,0.85,0.0]
+    ka: 0.1
+    kd: 0.5
+    ks: 0.7
+    n: 32 
+- type: sphere
+  position: [180,150,-400]
+  radius: 24
+  material: 
+    color: [1.0,0.85,0.0]
+    ka: 0.1
+    kd: 0.5
+    ks: 0.7
+    n: 32        
+- type: sphere
+  position: [120,320,-500]
+  radius: 17
+  material: 
+    color: [1.0,0.85,0.0]
+    ka: 0.1
+    kd: 0.5
+    ks: 0.7
+    n: 32    
+- type: sphere
+  position: [100,250,-500]
+  radius: 23
+  material: 
+    color: [1.0,0.85,0.0]
+    ka: 0.1
+    kd: 0.5
+    ks: 0.7
+    n: 32 
+- type: sphere
+  position: [120,180,-500]
+  radius: 16
+  material: 
+    color: [1.0,0.85,0.0]
+    ka: 0.1
+    kd: 0.5
+    ks: 0.7
+    n: 32        
+
+
+- type: sphere
+  position: [260,320,-120]
+  radius: 11
+  material: 
+    color: [0.9,0.9,0.9]
+    ka: 0.1
+    kd: 0.5
+    ks: 0.7
+    n: 32    
+- type: sphere
+  position: [220,350,-097]
+  radius: 13
+  material: 
+    color: [0.9,0.9,0.9]
+    ka: 0.1
+    kd: 0.5
+    ks: 0.7
+    n: 32 
+- type: sphere
+  position: [180,320,-114]
+  radius: 18
+  material: 
+    color: [0.9,0.9,0.9]
+    ka: 0.1
+    kd: 0.5
+    ks: 0.7
+    n: 32  
+- type: sphere
+  position: [260,150,-130]
+  radius: 10
+  material: 
+    color: [0.9,0.9,0.9]
+    ka: 0.1
+    kd: 0.5
+    ks: 0.7
+    n: 32    
+- type: sphere
+  position: [220,100,-054]
+  radius: 12
+  material: 
+    color: [0.9,0.9,0.9]
+    ka: 0.1
+    kd: 0.5
+    ks: 0.7
+    n: 32 
+- type: sphere
+  position: [180,150,-100]
+  radius: 14
+  material: 
+    color: [0.9,0.9,0.9]
+    ka: 0.1
+    kd: 0.5
+    ks: 0.7
+    n: 32        
+- type: sphere
+  position: [120,320,-200]
+  radius: 11
+  material: 
+    color: [0.9,0.9,0.9]
+    ka: 0.1
+    kd: 0.5
+    ks: 0.7
+    n: 32    
+- type: sphere
+  position: [100,250,-200]
+  radius: 15
+  material: 
+    color: [0.9,0.9,0.9]
+    ka: 0.1
+    kd: 0.5
+    ks: 0.7
+    n: 32 
+- type: sphere
+  position: [120,180,-200]
+  radius: 17
+  material: 
+    color: [0.9,0.9,0.9]
+    ka: 0.1
+    kd: 0.5
+    ks: 0.7
+    n: 32     
+
+- type: sphere
+  position: [50,200,-100]
+  radius: 50
+  material: 
+    color: [1.0,1.0,1.0]
+    ka: 0.05
+    kd: 0.9
+    ks: 0.9
+    n: 64 
+
+
+
+
+
+
+
