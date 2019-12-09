@@ -39,6 +39,9 @@ private:
     Light* parseLight(const YAML::Node& node);
 	bool parseShadow(const YAML::Node& node);
 	int parseReflectionDepth(const YAML::Node& node);
+	Camera* parseCamera(const YAML::Node& node);
+	int parseSuperSampling(const YAML::Node& node);
+
 
 public:
     Raytracer() { }

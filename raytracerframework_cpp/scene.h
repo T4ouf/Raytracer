@@ -35,15 +35,22 @@ typedef enum {
 	ZBUFFER = 2
 } raytracingType;
 
-class Scene
-{
+struct Camera {
+	Point eye;
+	Point c;	//center
+	Vector up;
+	double aspectRatio;
+	int baseline;
+	int superSampling;
+};
+
+class Scene{
 private:
     std::vector<Object*> objects;
     std::vector<Light*> lights;
-    Triple eye;
 	raytracingType type;
 	bool shadowComputation = false; //shadowComputation means : Compute shadows = true; don't compute = false
-
+	Camera camera;
 	int maxRecurDepth;
 
 public:
@@ -51,7 +58,6 @@ public:
     void render(Image &img);
     void addObject(Object *o);
     void addLight(Light *l);
-    void setEye(Triple e);
 	void setRaytracingType(raytracingType r);
 	void setRaytracingType(string r);
 	void setShadowBool(bool shadow);
@@ -59,7 +65,8 @@ public:
     unsigned int getNumObjects() { return objects.size(); }
     unsigned int getNumLights() { return lights.size(); }
 	bool hiddenSurface(const Ray &ray, Light& l);
-	Color reflection(const Ray& ray, int recursionLimit);
+
+	void setCamera(Camera* c);
 
 };
 

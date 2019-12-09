@@ -136,6 +136,33 @@ Light* Raytracer::parseLight(const YAML::Node& node)
     return new Light(position,color);
 }
 
+int Raytracer::parseSuperSampling(const YAML::Node& node) {
+	int r = 0;
+	node["factor"] >> r;
+	return r;
+}
+
+Camera* Raytracer::parseCamera(const YAML::Node& node) {
+	Camera* c = new Camera();
+
+	// Read scene configuration options
+	c->eye = parseTriple(node["Eye"]);
+	c->c = parseTriple(node["center"]);
+	Vector upInit = parseTriple(node["up"]).normalized();
+	Vector CEye = (c->c - c->eye);
+	Vector side = CEye.cross(upInit).normalized();
+	c->up = side.cross(CEye).normalized();
+
+	double width = node["viewSize"][0];
+	double height = node["viewSize"][1];
+	c->aspectRatio = width / height;
+	c->baseline = width;	//define the baseline as the width
+	c->superSampling = parseSuperSampling(node["SuperSampling"]);
+
+	return c;
+}
+
+
 /*
 * Read a scene from file
 */
@@ -158,9 +185,6 @@ bool Raytracer::readScene(const std::string& inputFilename)
             parser.GetNextDocument(doc);
 			
 			scene->setRaytracingType(parseType(doc["RaytracingType"]));
-
-            // Read scene configuration options
-            scene->setEye(parseTriple(doc["Eye"]));
 
 			scene->setShadowBool(parseType(doc["Shadows"]));
 

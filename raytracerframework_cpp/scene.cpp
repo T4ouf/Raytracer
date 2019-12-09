@@ -48,49 +48,6 @@ bool Scene::hiddenSurface(const Ray &ray, Light& l) {
 
 }
 
-Color Scene::reflection(const Ray& ray, int recursionLimit) {
-
-	//No reflection
-	if (recursionLimit == 0) {
-		return Color(0, 0, 0);
-	}
-
-	// Find hit object and distance
-	Hit min_hit(std::numeric_limits<double>::infinity(), Vector());
-	Object* obj = NULL;
-	for (unsigned int i = 0; i < objects.size(); ++i) {
-		Hit hit(objects[i]->intersect(ray));
-		if (hit.t < min_hit.t && hit.t>0) {
-			min_hit = hit;
-			obj = objects[i];
-		}
-	}
-
-	//No reflection because no hit point
-	if (obj == NULL) {
-		return Color(0, 0, 0);
-	}
-
-	Point hitPoint = ray.at(min_hit.t);                 //the hit point
-
-	/*double distance = sqrt( (hitPoint.x - ray.O.x) * (hitPoint.x - ray.O.x) +
-							(hitPoint.y - ray.O.y) * (hitPoint.y - ray.O.y) +
-							(hitPoint.z - ray.O.z) * (hitPoint.z - ray.O.z));
-							*/
-	if (recursionLimit==1) {
-		//We compute the reflected ray vector
-		Vector R = (2 * (min_hit.N.dot(-ray.D)) * min_hit.N + ray.D).normalized();
-		return trace(Ray(hitPoint,R),0);
-	}
-	else {
-		//We compute the reflected ray vector
-		Vector R = (2 * (min_hit.N.dot(-ray.D)) * min_hit.N + ray.D).normalized();
-		return obj->material->color + obj->material->ks * reflection(Ray(hitPoint,R), recursionLimit-1);
-	
-	}
-}
-
-
 Color Scene::trace(const Ray &ray, int recurDepth){
     // Find hit object and distance
     Hit min_hit(std::numeric_limits<double>::infinity(),Vector());
@@ -204,7 +161,7 @@ Color Scene::trace(const Ray &ray, int recurDepth){
 		//distance between the clipping planes
 		double distance = sqrt((farClipping - closeClipping) * (farClipping - closeClipping));
 
-		double I = (hit - eye).length();
+		double I = (hit - camera.eye).length();
 		double colorValue = (1 - (I - closeClipping) / (distance));
 
 		color = Color(colorValue, colorValue, colorValue);
@@ -225,7 +182,7 @@ void Scene::render(Image &img)
     for (long long int y = 0; y < h; y++) {
         for (int x = 0; x < w; x++) {
             Point pixel(x+0.5, h-1-y+0.5, 0);
-            Ray ray(eye, (pixel-eye).normalized());
+            Ray ray(camera.eye, (pixel-camera.eye).normalized());
             Color col = trace(ray,0);
             col.clamp();
             img(x,y) = col;
@@ -243,9 +200,9 @@ void Scene::addLight(Light *l)
     lights.push_back(l);
 }
 
-void Scene::setEye(Triple e)
+void Scene::setCamera(Camera* c)
 {
-    eye = e;
+	this->camera = *c;
 }
 
 void Scene::setRaytracingType(raytracingType r) {
