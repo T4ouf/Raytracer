@@ -1,13 +1,18 @@
 ---
 #  scene02
-
 #3 possible types : Colored = 0, Normals = 1, Z-Buffer = 2
 RaytracingType: 0
 
-Eye: [200,200,1500]  
+Camera:
+    eye: [200,200,1500]
+    center: [200,200,0]
+    up: [0,1,0]
+    viewSize: [400,400]  #aspectRatio * baseLine 
 
 Shadows: 1
 MaxRecursionDepth: 2
+SuperSampling:
+  factor: 2
 
 Lights:
 - position: [-1000,600,500]

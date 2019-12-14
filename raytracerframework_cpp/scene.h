@@ -38,6 +38,7 @@ typedef enum {
 struct Camera {
 	Point eye;
 	Point c;	//center
+	Vector side;
 	Vector up;
 	double aspectRatio;
 	int baseline;
@@ -50,11 +51,14 @@ private:
     std::vector<Light*> lights;
 	raytracingType type;
 	bool shadowComputation = false; //shadowComputation means : Compute shadows = true; don't compute = false
-	Camera camera;
+	
 	int maxRecurDepth;
 
 public:
-    Color trace(const Ray &ray, int recurDepth);
+	//Camera is accessible from the outside
+	Camera camera;
+	
+	Color trace(const Ray &ray, int recurDepth);
     void render(Image &img);
     void addObject(Object *o);
     void addLight(Light *l);

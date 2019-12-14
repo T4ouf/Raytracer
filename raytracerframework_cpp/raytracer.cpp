@@ -146,19 +146,19 @@ Camera* Raytracer::parseCamera(const YAML::Node& node) {
 	Camera* c = new Camera();
 
 	// Read scene configuration options
-	c->eye = parseTriple(node["Eye"]);
+	c->eye = parseTriple(node["eye"]);
 	c->c = parseTriple(node["center"]);
-	Vector upInit = parseTriple(node["up"]).normalized();
-	Vector CEye = (c->c - c->eye);
-	Vector side = CEye.cross(upInit).normalized();
-	c->up = side.cross(CEye).normalized();
+	Vector upInit = parseTriple(node["up"]);
+	Vector CEye = (c->c - c->eye).normalized();
+	Vector side = CEye.cross(upInit);
+	c->side = side;
+	c->up = side.cross(CEye);
 
 	double width = node["viewSize"][0];
 	double height = node["viewSize"][1];
 	c->aspectRatio = width / height;
-	c->baseline = width;	//define the baseline as the width
-	c->superSampling = parseSuperSampling(node["SuperSampling"]);
-
+	c->baseline = height;	//define the baseline as the height => we will multiply the width with the AspectRatio
+	
 	return c;
 }
 
@@ -186,9 +186,14 @@ bool Raytracer::readScene(const std::string& inputFilename)
 			
 			scene->setRaytracingType(parseType(doc["RaytracingType"]));
 
+			scene->setCamera(parseCamera(doc["Camera"]));
+
 			scene->setShadowBool(parseType(doc["Shadows"]));
 
 			scene->setMaxRecursion(parseReflectionDepth(doc["MaxRecursionDepth"]));
+
+			scene->camera.superSampling = parseSuperSampling(doc["SuperSampling"]);
+
 
             // Read and parse the scene objects
             const YAML::Node& sceneObjects = doc["Objects"];
@@ -230,7 +235,7 @@ bool Raytracer::readScene(const std::string& inputFilename)
 
 void Raytracer::renderToFile(const std::string& outputFilename)
 {
-    Image img(400,400);
+    Image img(scene->camera.aspectRatio * scene->camera.baseline, scene->camera.baseline);
     cout << "Tracing..." << endl;
     scene->render(img);
     cout << "Writing image to " << outputFilename << "..." << endl;

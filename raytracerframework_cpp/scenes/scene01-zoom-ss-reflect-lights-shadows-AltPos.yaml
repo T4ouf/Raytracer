@@ -16,15 +16,15 @@
 RaytracingType: 0
 
 Camera:
-    eye: [200,200,1000]
-    center: [200,200,0]
-    up: [0,1,0]
-    viewSize: [400,400]  #aspectRatio * baseLine 
+    eye: [1000,50,50]
+    center: [200,200,200]
+    up: [0,0.75,0]
+    viewSize: [800,400]  #aspectRatio * baseLine 
 
 Shadows: 1
-MaxRecursionDepth: 0
+MaxRecursionDepth: 2
 SuperSampling:
-  factor: 1
+  factor: 4
 
 Lights:
 - position: [-200,600,1500]

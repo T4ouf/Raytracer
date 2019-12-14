@@ -100,7 +100,6 @@ Color Scene::trace(const Ray &ray, int recurDepth){
 		color += material->ka * material->color;
 
 		//Compute diffuse and Specular part for each light source
-		/**/
 		for (auto l : lights) {
 
 			//We compute Light vector
@@ -133,10 +132,6 @@ Color Scene::trace(const Ray &ray, int recurDepth){
 
 
 		//We compute the reflected ray vector
-		/*Vector reflectedRay = (2 * (min_hit.N.dot(-ray.D)) * min_hit.N + ray.D).normalized();
-		color += reflection(Ray(hit, reflectedRay.normalized()), reflectionNumber) * obj->material->ks;
-		*/
-
 		if (recurDepth < maxRecurDepth - 1) {
 			Vector R2 = -2 * (N.dot(V)) * N + V;
 			R2 = R2.normalized();
@@ -175,20 +170,53 @@ Color Scene::trace(const Ray &ray, int recurDepth){
 	return color;
 }
 
-void Scene::render(Image &img)
+void Scene::render(Image& img)
 {
-    long long int w = img.width();
+	long long int w = img.width();
 	long long int h = img.height();
-    for (long long int y = 0; y < h; y++) {
-        for (int x = 0; x < w; x++) {
-            Point pixel(x+0.5, h-1-y+0.5, 0);
-            Ray ray(camera.eye, (pixel-camera.eye).normalized());
-            Color col = trace(ray,0);
-            col.clamp();
-            img(x,y) = col;
-        }
-    }
+
+	Vector pixelWidth = camera.side;
+	Vector pixelHeight = -camera.up;
+
+	//MidPoint of the image
+	Vector M = camera.c - pixelWidth * double(w) / 2.0f - pixelHeight * double(h) / 2.0f;
+
+	//for each pixel of the image
+	for (long long int y = 0; y < h; y++) {
+		for (long long int x = 0; x < w; x++) {
+
+			//We are going to sample a pixel color by tracing multiple rays
+			Color SuperSamplingColor = Color(0.0f, 0.0f, 0.0f);
+			Point pixel1 = M + double(x) * pixelWidth + double(y) * pixelHeight;
+
+			//Sampling the pixel with super sampling factor
+			for (int i = 0; i < camera.superSampling; i++) {
+				for (int j = 0; j < camera.superSampling; j++) {
+
+					//shifting to the right position of pixel in wolrd coords
+					Point pixel((pixelHeight / double(camera.superSampling)) * double(i)
+						+ (pixelWidth	/ double(camera.superSampling)) * double(j)
+						+ (pixelWidth	/ (double(camera.superSampling) * double(camera.superSampling)))
+						+ (pixelHeight	/ (double(camera.superSampling) * double(camera.superSampling))));
+
+					pixel += pixel1;
+
+					//We trace the ray
+					Ray ray(camera.eye, (pixel - camera.eye).normalized());
+					Color col = trace(ray, 0);
+					//adding to the other samples
+					SuperSamplingColor += col;
+				}
+			}
+			//doing the mean of each subpixel for the current pixel
+			SuperSamplingColor = SuperSamplingColor / (double(camera.superSampling) * double(camera.superSampling));
+			SuperSamplingColor.clamp();
+			img(x, y) = SuperSamplingColor; //print to the image file
+		}
+	}
 }
+
+
 
 void Scene::addObject(Object *o)
 {

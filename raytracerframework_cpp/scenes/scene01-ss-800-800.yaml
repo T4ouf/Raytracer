@@ -11,7 +11,6 @@
 #
 #  The example scene description should largely speak for itself. By now
 #  it should be clear that the #-character can be used to insert comments.
-
 #3 possible types : Colored = 0, Normals = 1, Z-Buffer = 2
 RaytracingType: 0
 
@@ -19,18 +18,16 @@ Camera:
     eye: [200,200,1000]
     center: [200,200,0]
     up: [0,1,0]
-    viewSize: [400,400]  #aspectRatio * baseLine 
+    viewSize: [800,800]  #aspectRatio * baseLine 
 
-Shadows: 1
+Shadows: 0
 MaxRecursionDepth: 0
 SuperSampling:
-  factor: 1
-
+  factor: 2 #2x2 SS
+  
 Lights:
 - position: [-200,600,1500]
-  color: [0.4,0.4,0.8]
-- position: [600,600,1500]
-  color: [0.8,0.8,0.4]
+  color: [1.0,1.0,1.0]
 
 Objects:
 - type: sphere
@@ -78,12 +75,3 @@ Objects:
     kd: 0.8
     ks: 0.5
     n: 32
-- type: sphere
-  position: [200,200,-1000]
-  radius: 1000
-  material: # grey
-    color: [0.4,0.4,0.4]
-    ka: 0.2
-    kd: 0.8
-    ks: 0
-    n: 1

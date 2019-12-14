@@ -12,14 +12,18 @@
 #  The example scene description should largely speak for itself. By now
 #  it should be clear that the #-character can be used to insert comments.
 
+#3 possible types : Colored = 0, Normals = 1, Z-Buffer = 2
+RaytracingType: 0
+
+Shadows: 1
+MaxRecursionDepth: 2
+
 Camera:
     eye: [200,200,1000]
-    center: [200,200,0]
+    #center: [200,200,0]
+    center: [220,200,0]
     up: [0,1,0]
     viewSize: [400,400]
-
-Shadows: true
-MaxRecursionDepth: 2
 SuperSampling:
   factor: 4
 
