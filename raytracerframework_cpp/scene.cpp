@@ -22,6 +22,8 @@
 
 #include "scene.h"
 #include "material.h"
+#include <omp.h>
+
 
 bool Scene::hiddenSurface(const Ray &ray, Light& l) {
 	// Find hit object and distance
@@ -180,8 +182,9 @@ void Scene::render(Image& img)
 
 	//MidPoint of the image
 	Vector M = camera.c - pixelWidth * double(w) / 2.0f - pixelHeight * double(h) / 2.0f;
-
+	
 	//for each pixel of the image
+	#pragma omp parallel for
 	for (long long int y = 0; y < h; y++) {
 		for (long long int x = 0; x < w; x++) {
 
