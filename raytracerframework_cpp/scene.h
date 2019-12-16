@@ -30,9 +30,10 @@
 #include "image.h"
 
 typedef enum {
-	COLORED = 0,
-	NORMALS = 1,
-	ZBUFFER = 2
+	PHONG			= 0,
+	NORMALS			= 1,
+	ZBUFFER			= 2,
+	TEXTURECOORDS	= 3
 } raytracingType;
 
 struct Camera {

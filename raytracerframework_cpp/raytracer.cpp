@@ -93,7 +93,15 @@ Object* Raytracer::parseObject(const YAML::Node& node)
         node["position"] >> pos;
         double r;
         node["radius"] >> r;
-        Sphere *sphere = new Sphere(pos,r);		
+		Vector up = parseTriple(node["rotation-axis"]).normalized();
+		Vector side = parseTriple(node["side-axis"]).normalized();
+		Vector S2 = up.cross(side).normalized();
+		side = S2.cross(up).normalized();
+		double rot;
+		node["angle"] >> rot;
+
+        Sphere *sphere = new Sphere(pos,r,rot,up,side,S2);	
+		sphere->texture = new Image("C:\\Users\\tvonasc\\Desktop\\Advanced_Graphics\\Raytracer\\raytracerframework_cpp\\scenes\\bluegrid.png");
         returnObject = sphere;
     }
 	else if (objectType == "triangle") {

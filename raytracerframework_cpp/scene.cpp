@@ -91,7 +91,7 @@ Color Scene::trace(const Ray &ray, int recurDepth){
 
 	Color color = Color(0,0,0); //pixel color
 
-	if (this->type == COLORED) {
+	if (this->type == PHONG) {
 
 		//Ensure normalization
 		N = N.normalized();
@@ -163,6 +163,14 @@ Color Scene::trace(const Ray &ray, int recurDepth){
 
 		color = Color(colorValue, colorValue, colorValue);
 		
+	}
+	else if (this->type == TEXTURECOORDS) {
+
+		std::pair<double,double> UV = obj->getTextureCoords(hit);
+
+		color = Color(obj->texture->colorAt(UV.first, UV.second));
+		//color = Color(UV.first, UV.second,0.0f);
+
 	}
 	else {
 		cerr << "UNSUPPORTED SCENE TYPE : " << this->type << " !\n";

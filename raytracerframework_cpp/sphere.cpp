@@ -67,12 +67,12 @@ Hit Sphere::intersect(const Ray &ray)
 	}
 
 	//Normally impossible (but remove some NaN values of thc so we keep it
-	if (d > r) {
+	if (d > radius) {
 		return Hit::NO_HIT();
 	}
 	
 	//length of the ray that is "inside" the sphere (trigo computation)
-	double thc = sqrt(r * r - d * d);
+	double thc = sqrt(radius * radius - d * d);
 
 	//from the total length we remove the part inside the sphere => we get the length until intersection
 	t = tca - thc;
@@ -93,4 +93,18 @@ Hit Sphere::intersect(const Ray &ray)
 	Vector N = (CP).normalized();
 	//Vector N = (Cimpact.normalized() + (ray.O + ray.D * t) + ray.O).normalized();
     return Hit(t,N);
+}
+
+
+std::pair<double, double> Sphere::getTextureCoords(Point p) {
+
+	Vector OP = p - this->position;
+	double v = (1+this->up.normalized().dot(OP.normalized()))/2; // cos(theta)
+
+	Vector OPPlaneProj = OP - (up.dot(OP)*up);
+
+	double u = (1 + side.normalized().dot(OPPlaneProj.normalized())) / 2;
+
+	return { u,v };
+
 }
