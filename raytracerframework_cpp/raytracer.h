@@ -41,6 +41,7 @@ private:
 	int parseReflectionDepth(const YAML::Node& node);
 	Camera* parseCamera(const YAML::Node& node);
 	int parseSuperSampling(const YAML::Node& node);
+	GoochParameters parseGooch(const YAML::Node& node);
 
 
 public:

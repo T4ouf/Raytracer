@@ -54,7 +54,9 @@ Triple parseTriple(const YAML::Node& node)
 
 raytracingType Raytracer::parseType(const YAML::Node& node){
 	int r=0;
-	node >> r;
+	if (node != NULL) {
+		node >> r;
+	}
 	return (raytracingType)r;
 }
 
@@ -74,6 +76,18 @@ int Raytracer::parseReflectionDepth(const YAML::Node& node) {
 Material* Raytracer::parseMaterial(const YAML::Node& node)
 {
     Material *m = new Material();
+	auto t = node.FindValue("texture");
+
+	if (t == NULL) {
+		m->texture = NULL;
+	}
+	else {
+
+		std::string path ;
+		node["texture"] >> path;
+		m->texture = new Image(path.c_str());
+	}
+
     node["color"] >> m->color;	
     node["ka"] >> m->ka;
     node["kd"] >> m->kd;
@@ -93,15 +107,25 @@ Object* Raytracer::parseObject(const YAML::Node& node)
         node["position"] >> pos;
         double r;
         node["radius"] >> r;
-		Vector up = parseTriple(node["rotation-axis"]).normalized();
+
+		auto upValue = node.FindValue("rotation-axis");
+		Vector up = Vector(0, 1, 0);
+		if (upValue != NULL) {
+			up = parseTriple(*upValue).normalized();
+		}
+				
+		/*
 		Vector side = parseTriple(node["side-axis"]).normalized();
 		Vector S2 = up.cross(side).normalized();
 		side = S2.cross(up).normalized();
-		double rot;
-		node["angle"] >> rot;
-
-        Sphere *sphere = new Sphere(pos,r,rot,up,side,S2);	
-		sphere->texture = new Image("C:\\Users\\tvonasc\\Desktop\\Advanced_Graphics\\Raytracer\\raytracerframework_cpp\\scenes\\bluegrid.png");
+		*/
+		double rot = 0;
+		auto angleValue = node.FindValue("angle");
+		if (angleValue != NULL) {
+			*angleValue >> rot;
+		}
+		
+        Sphere *sphere = new Sphere(pos,r,rot,up);	
         returnObject = sphere;
     }
 	else if (objectType == "triangle") {
@@ -150,6 +174,22 @@ int Raytracer::parseSuperSampling(const YAML::Node& node) {
 	return r;
 }
 
+GoochParameters Raytracer::parseGooch(const YAML::Node& node){
+
+	double alpha = 0;
+	double beta = 0;
+	double b = 0;
+	double y = 0;
+
+	node["alpha"] >> alpha;
+	node["beta"] >> beta;
+	node["b"] >> b;
+	node["y"] >> y;
+
+	GoochParameters g = GoochParameters(alpha, beta, b, y);
+	return g;
+}
+
 Camera* Raytracer::parseCamera(const YAML::Node& node) {
 	Camera* c = new Camera();
 
@@ -192,15 +232,48 @@ bool Raytracer::readScene(const std::string& inputFilename)
             YAML::Node doc;
             parser.GetNextDocument(doc);
 			
-			scene->setRaytracingType(parseType(doc["RaytracingType"]));
+			auto renderType = doc.FindValue("RaytracingType");
+			if (renderType != NULL) {
+				scene->setRaytracingType(parseType(*renderType));
+			}
+			else {
+				scene->setRaytracingType(raytracingType::PHONG);
+			}
 
+			
 			scene->setCamera(parseCamera(doc["Camera"]));
 
-			scene->setShadowBool(parseType(doc["Shadows"]));
+			auto shadowPresence = doc.FindValue("Shadows");
+			if (shadowPresence != NULL) {
+				scene->setShadowBool(parseType(*shadowPresence));
+			}
+			else {
+				scene->setShadowBool(false);
+			}
 
-			scene->setMaxRecursion(parseReflectionDepth(doc["MaxRecursionDepth"]));
+			auto recursionDepth = doc.FindValue("MaxRecursionDepth");
+			if (recursionDepth != NULL) {
+				scene->setMaxRecursion(parseReflectionDepth(*recursionDepth));
+			}
+			else {
+				scene->setMaxRecursion(0);
+			}
+			
+			auto superSampling = doc.FindValue("SuperSampling");
+			if (superSampling != NULL) {
+				scene->camera.superSampling = parseSuperSampling(*superSampling);
+			}
+			else {
+				scene->camera.superSampling = 1;
+			}
 
-			scene->camera.superSampling = parseSuperSampling(doc["SuperSampling"]);
+			auto GoochParameters = doc.FindValue("GoochParameters");
+			if (GoochParameters != NULL) {
+				scene->setGoochParams(parseGooch(*GoochParameters));
+			}
+			else {
+				scene->setGoochParams({ 0,0,1,1 });
+			}
 
 
             // Read and parse the scene objects

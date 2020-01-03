@@ -28,18 +28,24 @@
 class Sphere : public Object
 {
 public:
-    Sphere(Point position,double r, double rot, Vector vUp, Vector vSide, Vector vS2) : 
-		position(position), radius(r), RotationAngle(rot), up(vUp), side(vSide), s2(vS2)  { }
+    Sphere(Point position,double r, double rot, Vector vUp) : position(position), radius(r) {
+		rotationAxis = vUp;
+		rotationAngleDeg = rot;
+	}
 
     virtual Hit intersect(const Ray &ray);
-	virtual std::pair<double, double> getTextureCoords(Point p) override;
+	virtual std::pair<double, double> getTextureCoords(Point p, Vector rotationAxis, double rotationAngleDeg) override;
 
-    const Point position;
+	const Point position;
     const double radius;
-	const Vector up; //aka r
-	const Vector side; //aka s1
+	
+	/*
+	const Vector up;	//aka r
+	const Vector side;	//aka s1
 	const Vector s2;	// computed vector to ensure a 3D-Space basis
 	const double RotationAngle;
+	*/
+
 };
 
 #endif /* end of include guard: SPHERE_H_115209AE */

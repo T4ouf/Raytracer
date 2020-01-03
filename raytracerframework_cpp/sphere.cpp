@@ -22,6 +22,8 @@
 
 #include "sphere.h"
 #include <iostream>
+
+#define _USE_MATH_DEFINES
 #include <math.h>
 
 /************************** Sphere **********************************/
@@ -96,8 +98,8 @@ Hit Sphere::intersect(const Ray &ray)
 }
 
 
-std::pair<double, double> Sphere::getTextureCoords(Point p) {
-
+std::pair<double, double> Sphere::getTextureCoords(Point p, Vector rotationAxis, double rotationAngleDeg) {
+	/*
 	Vector OP = p - this->position;
 	double v = (1+this->up.normalized().dot(OP.normalized()))/2; // cos(theta)
 
@@ -106,5 +108,21 @@ std::pair<double, double> Sphere::getTextureCoords(Point p) {
 	double u = (1 + side.normalized().dot(OPPlaneProj.normalized())) / 2;
 
 	return { u,v };
+	*/
+	
+	//p = Transformations::rotationDeg(p - position, Vector(0, 0, 1), 180) + position;
 
+	p = Transformations::rotationDeg(p - position, rotationAxis, rotationAngleDeg) + position;
+
+	double theta = acos((p.z - position.z) / radius);
+	double phi = atan2(p.y - position.y, p.x - position.x) - (M_PI);
+
+	while (phi < 0.0)
+		phi += 2 * M_PI;
+	
+	double u = phi / (2 * M_PI);
+	double v = theta / M_PI;
+
+	return { u,v };
+	
 }

@@ -93,13 +93,26 @@ Color Scene::trace(const Ray &ray, int recurDepth){
 
 	if (this->type == PHONG) {
 
+		//We use either the texture pixel color or the material color
+		Color mat;
+
+		//No Phong Shading if the object has a texture
+		if (obj->material->texture != NULL) {
+			std::pair<double, double> UV = obj->getTextureCoords(hit, obj->rotationAxis, obj->rotationAngleDeg);
+			mat = Color(obj->material->texture->colorAt(UV.first, UV.second));
+			material->ks = 0;
+		}
+		else {
+			mat = material->color;
+		}
+
 		//Ensure normalization
 		N = N.normalized();
 		V = V.normalized();
 	
 		Vector Diffuse = Color(0, 0, 0);
 		Vector Specular= Color(0, 0, 0); //The specular value doesn't include the object color
-		color += material->ka * material->color;
+		color += material->ka * mat;
 
 		//Compute diffuse and Specular part for each light source
 		for (auto l : lights) {
@@ -114,6 +127,7 @@ Color Scene::trace(const Ray &ray, int recurDepth){
 			Vector R = 2 * (N.dot(L)) * N - L;
 			R = R.normalized();
 
+			//do we compute diffuse and specular ? (false for hidden surface in the shadow)
 			bool diffSpecOK = true;
 
 			if (shadowComputation) {
@@ -123,7 +137,7 @@ Color Scene::trace(const Ray &ray, int recurDepth){
 			//adding the diffuse component
 			auto input = L.dot(N) / (L.length() * N.length());
 			if (L.dot(N) > 0.0 && diffSpecOK) {
-				color += material->kd * l->color * input * material->color;
+				color += material->kd * l->color * input * mat;
 			}
 
 			// adding the specular componenent
@@ -140,10 +154,9 @@ Color Scene::trace(const Ray &ray, int recurDepth){
 			Color addedColor = trace(Ray(hit, -R2), recurDepth + 1);
 			color += material->ks * addedColor;
 		}
-		if (recurDepth >= maxRecurDepth - 1)
+		if (recurDepth >= maxRecurDepth - 1) {
 			color += Color(0.0, 0.0, 0.0);
-
-
+		}
 
 	}
 	else if (this->type == NORMALS) {
@@ -166,10 +179,80 @@ Color Scene::trace(const Ray &ray, int recurDepth){
 	}
 	else if (this->type == TEXTURECOORDS) {
 
-		std::pair<double,double> UV = obj->getTextureCoords(hit);
+		std::pair<double,double> UV = obj->getTextureCoords(hit, obj->rotationAxis, obj->rotationAngleDeg);
+		color = Color(UV.first, UV.second,0.0f);
 
-		color = Color(obj->texture->colorAt(UV.first, UV.second));
-		//color = Color(UV.first, UV.second,0.0f);
+	}
+	else if (this->type == GOOCH) {
+
+		//We use either the texture pixel color or the material color
+		Color mat;
+
+		//No Phong Shading if the object has a texture
+		if (obj->material->texture != NULL) {
+			std::pair<double, double> UV = obj->getTextureCoords(hit, obj->rotationAxis, obj->rotationAngleDeg);
+			mat = Color(obj->material->texture->colorAt(UV.first, UV.second));
+			material->ks = 0;
+		}
+		else {
+			mat = material->color;
+		}
+
+		//Ensure normalization
+		N = N.normalized();
+		V = V.normalized();
+
+		Vector Diffuse = Color(0, 0, 0);
+		Vector Specular = Color(0, 0, 0); //The specular value doesn't include the object color
+		//color += material->ka * mat;
+
+		//Compute diffuse and Specular part for each light source
+		for (auto l : lights) {
+
+			//We compute Light vector
+			Vector L = (l->position - hit).normalized();
+
+			//We compute the incomming ray vector
+			//Vector I = (-L).normalized();
+
+			//We compute the reflected ray vector
+			Vector R = 2 * (N.dot(L)) * N - L;
+			R = R.normalized();
+
+			Color diffGooch = l->color * mat * material->kd;
+			Color kCool = Color(0.0, 0.0, gooch->b) + gooch->alpha * diffGooch;
+			Color kWarm = Color(gooch->y, gooch->y, 0.0) + gooch->beta * diffGooch;
+
+			//do we compute diffuse and specular ? (false for hidden surface in the shadow)
+			bool diffSpecOK = true;
+
+			if (shadowComputation) {
+				diffSpecOK = !hiddenSurface(Ray(hit, L), *l);
+			}
+
+			//adding the diffuse component
+			auto input = L.dot(N) / (L.length() * N.length());
+			//if (L.dot(N) > 0.0 && diffSpecOK) {
+				color += kCool*(1 - N.dot(L))/2.0f + kWarm*(1 + N.dot(L))/2.0f;
+			//}
+
+			// adding the specular componenent
+			if (R.dot(V) > 0.0 && diffSpecOK) {
+				color += material->ks * pow((R.dot(V)), material->n) * l->color;
+			}
+		}
+
+
+		//We compute the reflected ray vector
+		if (recurDepth < maxRecurDepth - 1) {
+			Vector R2 = -2 * (N.dot(V)) * N + V;
+			R2 = R2.normalized();
+			Color addedColor = trace(Ray(hit, -R2), recurDepth + 1);
+			color += material->ks * addedColor;
+		}
+		if (recurDepth >= maxRecurDepth - 1) {
+			color += Color(0.0, 0.0, 0.0);
+		}
 
 	}
 	else {
@@ -180,8 +263,8 @@ Color Scene::trace(const Ray &ray, int recurDepth){
 	return color;
 }
 
-void Scene::render(Image& img)
-{
+void Scene::render(Image& img){
+
 	long long int w = img.width();
 	long long int h = img.height();
 
@@ -254,4 +337,11 @@ void Scene::setShadowBool(bool shadow) {
 
 void Scene::setMaxRecursion(int recursionLimit) {
 	this->maxRecurDepth = recursionLimit;
+}
+
+void Scene::setGoochParams(const GoochParameters& g) {
+	gooch->alpha = g.alpha;
+	gooch->beta = g.beta;
+	gooch->b = g.b;
+	gooch->y = g.y;
 }

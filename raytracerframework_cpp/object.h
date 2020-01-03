@@ -25,20 +25,21 @@
 
 #include "triple.h"
 #include "light.h"
-#include "image.h"
+#include "transformations.h"
 
 class Material;
 
 class Object {
 public:
-	Image *texture;
-
+	
     Material *material;
+	Vector rotationAxis;
+	double rotationAngleDeg;
 
     virtual ~Object() { }
 
     virtual Hit intersect(const Ray &ray) = 0;
-	virtual std::pair<double, double> getTextureCoords(Point p) { return {}; };
+	virtual std::pair<double, double> getTextureCoords(Point p, Vector rotationAxis, double rotationAngleDeg) { return {}; };
 };
 
 #endif /* end of include guard: OBJECT_H_AXKLE0OF */

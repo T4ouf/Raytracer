@@ -33,8 +33,19 @@ typedef enum {
 	PHONG			= 0,
 	NORMALS			= 1,
 	ZBUFFER			= 2,
-	TEXTURECOORDS	= 3
+	TEXTURECOORDS	= 3,
+	GOOCH			= 4
 } raytracingType;
+
+typedef struct GoochParameters{
+	double alpha;
+	double beta;
+	double b;
+	double y;
+	GoochParameters() {};
+	GoochParameters(double gAlpha, double gBeta, double gB, double gY) : alpha(gAlpha), beta(gBeta), b(gB), y(gY) {}
+
+};
 
 struct Camera {
 	Point eye;
@@ -54,10 +65,12 @@ private:
 	bool shadowComputation = false; //shadowComputation means : Compute shadows = true; don't compute = false
 	
 	int maxRecurDepth;
+	GoochParameters* gooch = new GoochParameters(0,0,0,0);
 
 public:
 	//Camera is accessible from the outside
 	Camera camera;
+
 	
 	Color trace(const Ray &ray, int recurDepth);
     void render(Image &img);
@@ -67,6 +80,7 @@ public:
 	void setRaytracingType(string r);
 	void setShadowBool(bool shadow);
 	void setMaxRecursion(int recursionLimit);
+	void setGoochParams(const GoochParameters& g);
     unsigned int getNumObjects() { return objects.size(); }
     unsigned int getNumLights() { return lights.size(); }
 	bool hiddenSurface(const Ray &ray, Light& l);
