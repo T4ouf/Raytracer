@@ -157,7 +157,19 @@ Object* Raytracer::parseObject(const YAML::Node& node)
 		node["p2"] >> p2;
 		node["p3"] >> p3;
 
-		Plane* plane = new Plane(p1, p2, p3);
+		auto upValue = node.FindValue("rotation-axis");
+		Vector up = Vector(0, 1, 0);
+		if (upValue != NULL) {
+			up = parseTriple(*upValue).normalized();
+		}
+		
+		double rot = 0;
+		auto angleValue = node.FindValue("angle");
+		if (angleValue != NULL) {
+			*angleValue >> rot;
+		}
+
+		Plane* plane = new Plane(p1, p2, p3, up, rot);
 		returnObject = plane;
 	}
 

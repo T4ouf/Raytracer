@@ -6,7 +6,7 @@
 
 struct Transformations {
 
-	static Triple& rotation(const Triple& p, const Vector& rotationAxis, double radiansAngle) {
+	static Triple& rotation(const Triple& rotationCenter, const Vector& rotationAxis, double radiansAngle) {
 
 		Vector u = rotationAxis.normalized();
 		double cosA = cos(radiansAngle);
@@ -30,11 +30,11 @@ struct Transformations {
 			cosA + u.z * u.z * (1 - cosA)
 		);
 
-		return Vector(row1.dot(p), row2.dot(p), row3.dot(p));
+		return Vector(row1.dot(rotationCenter), row2.dot(rotationCenter), row3.dot(rotationCenter));
 
 	}
-	static Triple& rotationDeg(const Triple& p, const Vector& v, double angle) {
-		return rotation(p, v, angle * (M_PI) / 180);
+	static Triple& rotationDeg(const Triple& rotationCenter, const Vector& rotationAxis, double angle) {
+		return rotation(rotationCenter, rotationAxis, angle * (M_PI) / 180);
 	}
 
 };

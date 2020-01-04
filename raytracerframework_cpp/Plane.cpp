@@ -42,3 +42,29 @@ Hit Plane::intersect(const Ray& ray) {
 
 	return Hit(t, N);
 }
+
+std::pair<double, double> Plane::getTextureCoords(Point p, Vector rotationAxis, double rotationAngleDeg) {
+
+	//Vecteur horizontal
+	Vector P1P2 = (this->points[1] - this->points[0]);
+	//Vecteur vertical
+	Vector P1P3 = (this->points[2] - this->points[0]);
+	//Vecteur point
+	Vector P1P = (p - this->points[0]);
+
+	double integerPart = 0.0;
+
+	double costheta = P1P.normalized().dot(P1P2.normalized());
+	double u = costheta * P1P.length() / P1P2.length();
+	u = modf(u, &integerPart);
+
+	costheta = P1P.normalized().dot(P1P3.normalized());
+	double v = costheta * P1P.length() / P1P3.length();
+	v = modf(v, &integerPart);
+	
+	u = (u + 1.0) / 2.0;
+	v = (v + 1.0) / 2.0;
+
+	return { u,v };
+
+}

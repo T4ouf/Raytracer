@@ -233,8 +233,8 @@ Color Scene::trace(const Ray &ray, int recurDepth){
 			R = R.normalized();
 
 			Color diffGooch = l->color * mat * material->kd;
-			Color kCool = Color(0.0, 0.0, gooch->b) + gooch->alpha * diffGooch;
-			Color kWarm = Color(gooch->y, gooch->y, 0.0) + gooch->beta * diffGooch;
+			Color kCool = Color(0.0f, 0.0f, gooch->b) + gooch->alpha * diffGooch;
+			Color kWarm = Color(gooch->y, gooch->y, 0.0f) + gooch->beta * diffGooch;
 
 			//do we compute diffuse and specular ? (false for hidden surface in the shadow)
 			bool diffSpecOK = true;
@@ -243,12 +243,8 @@ Color Scene::trace(const Ray &ray, int recurDepth){
 				diffSpecOK = !hiddenSurface(Ray(hit, L), *l);
 			}
 
-			//adding the diffuse component
-			auto input = L.dot(N) / (L.length() * N.length());
-			//if (diffSpecOK) {
-				color += kCool*(1 - N.dot(L))/2.0f + kWarm*(1 + N.dot(L))/2.0f; //PB...
-			//}
-
+			color += kCool*(1.0 - N.dot(L))/2.0 + kWarm*(1.0 + N.dot(L))/2.0;
+			
 			// adding the specular componenent
 			if (R.dot(V) > 0.0 && diffSpecOK) {
 				color += material->ks * pow((R.dot(V)), material->n) * l->color;
