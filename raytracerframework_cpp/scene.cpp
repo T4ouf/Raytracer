@@ -96,14 +96,20 @@ Color Scene::trace(const Ray &ray, int recurDepth){
 		//We use either the texture pixel color or the material color
 		Color mat;
 
+		std::pair<double, double> UV = obj->getTextureCoords(hit, obj->rotationAxis, obj->rotationAngleDeg);
+
 		//No Phong Shading if the object has a texture
 		if (obj->material->texture != NULL) {
-			std::pair<double, double> UV = obj->getTextureCoords(hit, obj->rotationAxis, obj->rotationAngleDeg);
+			
 			mat = Color(obj->material->texture->colorAt(UV.first, UV.second));
 			material->ks = 0;
 		}
 		else {
 			mat = material->color;
+		}
+
+		if (obj->material->bumpMap != NULL) {
+			N = (N + (2 * obj->material->bumpMap->colorAt(UV.first, UV.second) - 1)).normalized();
 		}
 
 		//Ensure normalization
@@ -160,6 +166,13 @@ Color Scene::trace(const Ray &ray, int recurDepth){
 
 	}
 	else if (this->type == NORMALS) {
+
+		std::pair<double, double> UV = obj->getTextureCoords(hit, obj->rotationAxis, obj->rotationAngleDeg);
+
+		if (obj->material->bumpMap != NULL) {
+			N = (N + (2*obj->material->bumpMap->colorAt(UV.first, UV.second)-1)).normalized();
+		}
+		
 		Color normals = (N + 1.0f) / 2.0f;
 		color = normals;
 	}
@@ -232,8 +245,8 @@ Color Scene::trace(const Ray &ray, int recurDepth){
 
 			//adding the diffuse component
 			auto input = L.dot(N) / (L.length() * N.length());
-			//if (L.dot(N) > 0.0 && diffSpecOK) {
-				color += kCool*(1 - N.dot(L))/2.0f + kWarm*(1 + N.dot(L))/2.0f;
+			//if (diffSpecOK) {
+				color += kCool*(1 - N.dot(L))/2.0f + kWarm*(1 + N.dot(L))/2.0f; //PB...
 			//}
 
 			// adding the specular componenent

@@ -93,6 +93,7 @@ Hit Sphere::intersect(const Ray &ray)
 	//Vector from sphere center to impact point (normal to the surface)
 	Vector CP = P - position;
 	Vector N = (CP).normalized();
+
 	//Vector N = (Cimpact.normalized() + (ray.O + ray.D * t) + ray.O).normalized();
     return Hit(t,N);
 }
@@ -110,10 +111,14 @@ std::pair<double, double> Sphere::getTextureCoords(Point p, Vector rotationAxis,
 	return { u,v };
 	*/
 	
-	//p = Transformations::rotationDeg(p - position, Vector(0, 0, 1), 180) + position;
 
-	p = Transformations::rotationDeg(p - position, rotationAxis, rotationAngleDeg) + position;
-
+	if (rotationAngleDeg == 0.0f) {
+		p = Transformations::rotationDeg(p - position, Vector(0, 0, 1), 90) + position;
+	}
+	else {
+		p = Transformations::rotationDeg(p - position, rotationAxis, rotationAngleDeg) + position;
+	}
+	
 	double theta = acos((p.z - position.z) / radius);
 	double phi = atan2(p.y - position.y, p.x - position.x) - (M_PI);
 

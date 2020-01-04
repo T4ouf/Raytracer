@@ -73,11 +73,11 @@ int Raytracer::parseReflectionDepth(const YAML::Node& node) {
 }
 
 
-Material* Raytracer::parseMaterial(const YAML::Node& node)
-{
-    Material *m = new Material();
-	auto t = node.FindValue("texture");
+Material* Raytracer::parseMaterial(const YAML::Node& node){
 
+    Material *m = new Material();
+
+	auto t = node.FindValue("texture");
 	if (t == NULL) {
 		m->texture = NULL;
 	}
@@ -86,6 +86,16 @@ Material* Raytracer::parseMaterial(const YAML::Node& node)
 		std::string path ;
 		node["texture"] >> path;
 		m->texture = new Image(path.c_str());
+	}
+
+	auto bump = node.FindValue("bumpMap");
+	if (bump == NULL) {
+		m->bumpMap = NULL;
+	}
+	else {
+		std::string pathBump;
+		node["bumpMap"] >> pathBump;
+		m->bumpMap = new Image(pathBump.c_str());
 	}
 
     node["color"] >> m->color;	
@@ -119,7 +129,7 @@ Object* Raytracer::parseObject(const YAML::Node& node)
 		Vector S2 = up.cross(side).normalized();
 		side = S2.cross(up).normalized();
 		*/
-		double rot = 0;
+		double rot = 0.0f;
 		auto angleValue = node.FindValue("angle");
 		if (angleValue != NULL) {
 			*angleValue >> rot;

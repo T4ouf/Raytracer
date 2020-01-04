@@ -29,6 +29,7 @@ class Material{
 public:
     Color color;        // base color
 	Image* texture;		// texture Image
+	Image* bumpMap;		// Object BumpMap
     double ka;          // ambient intensity
     double kd;          // diffuse intensity
     double ks;          // specular intensity 

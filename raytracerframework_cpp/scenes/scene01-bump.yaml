@@ -12,35 +12,36 @@
 #  The example scene description should largely speak for itself. By now
 #  it should be clear that the #-character can be used to insert comments.
 
-#3 possible types : Phong = 0, Normals = 1, Z-Buffer = 2, UV-coords = 3, Gooch = 4
-RaytracingType: 4
+#3 possible types : Phong = 0, Normals = 1, Z-Buffer = 2, UV-coords = 3
+RaytracingType: 1
 
 Camera:
     eye: [200,200,1000]
     center: [200,200,0]
     up: [0,1,0]
     viewSize: [400,400]  #aspectRatio * baseLine 
-    
+
 Shadows: 1
 MaxRecursionDepth: 2
 SuperSampling:
   factor: 4
 
-GoochParameters:
-  b: 0.55
-  y: 0.3
-  alpha: 0.25
-  beta: 0.5
-
 Lights:
-- position: [-1000,600,400]
-  color: [1.0,1.0,1.0]
+- position: [-200,1000,1500]
+  color: [0.4,0.4,0.8]
+- position: [600,100,1500]
+  color: [0.8,0.8,0.4]
 
 Objects:
 - type: sphere
   position: [90,320,100]
   radius: 50
+  rotation-axis : [0,-1,0]
+  side-axis : [1,0,0]
+  angle : 90
   material: # blue
+    texture: rock.png
+    bumpMap: bumpMap_rock.png
     color: [0.0,0.0,1.0]
     ka: 0.2
     kd: 0.7
@@ -49,6 +50,9 @@ Objects:
 - type: sphere
   position: [210,270,300]
   radius: 50
+  rotation-axis : [0,-1,0]
+  side-axis : [1,0,0]
+  angle : 0
   material: # green
     color: [0.0,1.0,0.0]
     ka: 0.2
@@ -58,7 +62,12 @@ Objects:
 - type: sphere
   position: [290,170,150]
   radius: 50
+  rotation-axis : [0.5,-1,0.2]
+  side-axis : [1,0,0]
+  angle : 74
   material: # red
+    texture: bricks.png
+    bumpMap: bumpMap_bricks2.png
     color: [1.0,0.0,0.0]
     ka: 0.2
     kd: 0.7
@@ -66,31 +75,40 @@ Objects:
     n: 32
 - type: sphere
   position: [140,220,400]
+  #radius: [50,[0,1,0.7]]
+  #angle: 90
   radius: 50
-  rotation-axis : [1,0,0]
+  rotation-axis : [0,1,0.7]
   angle : 90
-  material: # yellow
+  material:
     texture: earthmap1k.png
-    color: [1.0,0.8,0.0]
-    ka: 0.2
-    kd: 0.8
-    ks: 0.0
-    n: 1
-- type: sphere
-  position: [110,130,200]
-  radius: 50
-  material: # orange
-    color: [1.0,0.5,0.0]
-    ka: 0.2
-    kd: 0.8
-    ks: 0.5
-    n: 32
-- type: sphere
-  position: [200,200,-1000]
-  radius: 1000
-  material: # grey
-    color: [0.4,0.4,0.4]
+    #bumpMap: earthbump1k.png
+    color: [1.0,0.0,0.0]
     ka: 0.2
     kd: 0.8
     ks: 0
     n: 1
+- type: sphere
+  position: [110,130,200]
+  radius: 50
+  rotation-axis : [0,1,0]
+  side-axis : [1,0,0]
+  angle : 90
+  material: # orange
+    color: [1.0,0.5,0.0]
+    ka: 0.2
+    kd: 0.8
+    ks: 0
+    n: 32
+- type: sphere
+  position: [200,200,-1000]
+  radius: 1000
+  rotation-axis : [0,-1,0]
+  side-axis : [1,0,0]
+  angle : 0
+  material: # grey
+    color: [0.35,0.35,0.35]
+    ka: 0.1
+    kd: 0.3
+    ks: 1
+    n: 64
