@@ -102,7 +102,7 @@ Color Scene::trace(const Ray &ray, int recurDepth){
 		if (obj->material->texture != NULL) {
 			
 			mat = Color(obj->material->texture->colorAt(UV.first, UV.second));
-			material->ks = 0;
+			//material->ks = 0;
 		}
 		else {
 			mat = material->color;
