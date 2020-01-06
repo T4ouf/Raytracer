@@ -53,17 +53,16 @@ std::pair<double, double> Plane::getTextureCoords(Point p, Vector rotationAxis, 
 	Vector P1P = (p - this->points[0]);
 
 	double integerPart = 0.0;
+ 
+	double u = P1P.dot(P1P2.normalized()) / P1P2.length();
+	u = u - double((int(u)));
+	//u = modf(u, &integerPart);
 
-	double costheta = P1P.normalized().dot(P1P2.normalized());
-	double u = costheta * P1P.length() / P1P2.length();
-	u = modf(u, &integerPart);
+	double v = P1P.dot(P1P3.normalized()) / P1P3.length();
+	v = v - double((int(v)));
 
-	costheta = P1P.normalized().dot(P1P3.normalized());
-	double v = costheta * P1P.length() / P1P3.length();
-	v = modf(v, &integerPart);
-	
-	u = (u + 1.0) / 2.0;
-	v = (v + 1.0) / 2.0;
+	//u = (u + 1.0) / 2.0;
+	//v = (v + 1.0) / 2.0;
 
 	return { u,v };
 

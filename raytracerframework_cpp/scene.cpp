@@ -193,7 +193,7 @@ Color Scene::trace(const Ray &ray, int recurDepth){
 	else if (this->type == TEXTURECOORDS) {
 
 		std::pair<double,double> UV = obj->getTextureCoords(hit, obj->rotationAxis, obj->rotationAngleDeg);
-		color = Color(UV.first, UV.second,0.0f);
+		color = Color(UV.first, 0.0f, UV.second);
 
 	}
 	else if (this->type == GOOCH) {
