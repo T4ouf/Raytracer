@@ -36,9 +36,9 @@ public:
     virtual Hit intersect(const Ray &ray);
 	virtual std::pair<double, double> getTextureCoords(Point p, Vector rotationAxis, double rotationAngleDeg) override;
 
-	const Point position;
-    const double radius;
-	
+	Point position;
+    double radius;
+
 	/*
 	const Vector up;	//aka r
 	const Vector side;	//aka s1

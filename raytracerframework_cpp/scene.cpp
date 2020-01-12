@@ -89,7 +89,7 @@ Color Scene::trace(const Ray &ray, int recurDepth){
     *        pow(a,b)           a to the power of b
     ****************************************************/
 
-	Color color = Color(0,0,0); //pixel color
+	Color color = Color(0.0,0.0,0.0); //pixel color
 
 	if (this->type == PHONG) {
 
@@ -109,15 +109,15 @@ Color Scene::trace(const Ray &ray, int recurDepth){
 		}
 
 		if (obj->material->bumpMap != NULL) {
-			N = (N + (2 * obj->material->bumpMap->colorAt(UV.first, UV.second) - 1)).normalized();
+			N = (N + (2.0 * obj->material->bumpMap->colorAt(UV.first, UV.second) - 1)).normalized();
 		}
 
 		//Ensure normalization
 		N = N.normalized();
 		V = V.normalized();
 	
-		Vector Diffuse = Color(0, 0, 0);
-		Vector Specular= Color(0, 0, 0); //The specular value doesn't include the object color
+		Vector Diffuse = Color(0.0, 0.0, 0.0);
+		Vector Specular= Color(0.0, 0.0, 0.0); //The specular value doesn't include the object color
 		color += material->ka * mat;
 
 		//Compute diffuse and Specular part for each light source
@@ -130,7 +130,7 @@ Color Scene::trace(const Ray &ray, int recurDepth){
 			//Vector I = (-L).normalized();
 
 			//We compute the reflected ray vector
-			Vector R = 2 * (N.dot(L)) * N - L;
+			Vector R = 2.0 * (N.dot(L)) * N - L;
 			R = R.normalized();
 
 			//do we compute diffuse and specular ? (false for hidden surface in the shadow)
@@ -155,7 +155,7 @@ Color Scene::trace(const Ray &ray, int recurDepth){
 
 		//We compute the reflected ray vector
 		if (recurDepth < maxRecurDepth - 1) {
-			Vector R2 = -2 * (N.dot(V)) * N + V;
+			Vector R2 = -2.0 * (N.dot(V)) * N + V;
 			R2 = R2.normalized();
 			Color addedColor = trace(Ray(hit, -R2), recurDepth + 1);
 			color += material->ks * addedColor;
@@ -170,7 +170,7 @@ Color Scene::trace(const Ray &ray, int recurDepth){
 		std::pair<double, double> UV = obj->getTextureCoords(hit, obj->rotationAxis, obj->rotationAngleDeg);
 
 		if (obj->material->bumpMap != NULL) {
-			N = (N + (2*obj->material->bumpMap->colorAt(UV.first, UV.second)-1)).normalized();
+			N = (N + (2.0*obj->material->bumpMap->colorAt(UV.first, UV.second)-1.0)).normalized();
 		}
 		
 		Color normals = (N + 1.0f) / 2.0f;
@@ -205,7 +205,7 @@ Color Scene::trace(const Ray &ray, int recurDepth){
 		if (obj->material->texture != NULL) {
 			std::pair<double, double> UV = obj->getTextureCoords(hit, obj->rotationAxis, obj->rotationAngleDeg);
 			mat = Color(obj->material->texture->colorAt(UV.first, UV.second));
-			material->ks = 0;
+			material->ks = 0.0;
 		}
 		else {
 			mat = material->color;
@@ -215,8 +215,8 @@ Color Scene::trace(const Ray &ray, int recurDepth){
 		N = N.normalized();
 		V = V.normalized();
 
-		Vector Diffuse = Color(0, 0, 0);
-		Vector Specular = Color(0, 0, 0); //The specular value doesn't include the object color
+		Vector Diffuse = Color(0.0, 0.0, 0.0);
+		Vector Specular = Color(0.0, 0.0, 0.0); //The specular value doesn't include the object color
 		//color += material->ka * mat;
 
 		//Compute diffuse and Specular part for each light source
@@ -229,7 +229,7 @@ Color Scene::trace(const Ray &ray, int recurDepth){
 			//Vector I = (-L).normalized();
 
 			//We compute the reflected ray vector
-			Vector R = 2 * (N.dot(L)) * N - L;
+			Vector R = 2.0 * (N.dot(L)) * N - L;
 			R = R.normalized();
 
 			Color diffGooch = l->color * mat * material->kd;

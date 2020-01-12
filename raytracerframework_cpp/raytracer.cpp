@@ -22,11 +22,14 @@
 #include "object.h"
 #include "sphere.h"
 #include "triangle.h"
+#include "model.h"
 #include "Plane.h"
+#include "quad.h"
 #include "material.h"
 #include "light.h"
 #include "image.h"
 #include "yaml/yaml.h"
+#include "glm.h"
 #include <ctype.h>
 #include <fstream>
 #include <assert.h>
@@ -112,7 +115,7 @@ Object* Raytracer::parseObject(const YAML::Node& node)
     std::string objectType;
     node["type"] >> objectType;
 
-    if (objectType == "sphere") {
+	if (objectType == "sphere") {
         Point pos;
         node["position"] >> pos;
         double r;
@@ -149,6 +152,19 @@ Object* Raytracer::parseObject(const YAML::Node& node)
 		Triangle* triangle = new Triangle(p1,p2,p3);
 		returnObject = triangle;
 	}
+	else if (objectType == "quad") {
+		Point p1;
+		Point p2;
+		Point p3;
+		Point p4;
+		node["p1"] >> p1;
+		node["p2"] >> p2;
+		node["p3"] >> p3;
+		node["p4"] >> p4;
+
+		Quad* quad = new Quad(p1, p2, p3, p4);
+		returnObject = quad;
+	}
 	else if (objectType == "plane") {
 		Point p1;
 		Point p2;
@@ -171,6 +187,82 @@ Object* Raytracer::parseObject(const YAML::Node& node)
 
 		Plane* plane = new Plane(p1, p2, p3, up, rot);
 		returnObject = plane;
+	}
+	else if(objectType == "model"){
+
+		std::string path;
+		node["path"] >> path;
+		char* path2 = &path[0];
+		auto model = glmReadOBJ(path2);
+
+		double scaleFactor;
+		node["scaleFactor"] >> scaleFactor;
+
+		//More visual => x10
+		scaleFactor = scaleFactor * 10;
+
+		//We properly scale our model
+		glmUnitize(model);
+		glmScale(model, float(scaleFactor));
+
+		Point position = parseTriple(node["position"]);
+		
+		//Array to store all the vertices
+		double* dblArray = new double[model->numtriangles * 9];
+
+
+		float dim[3];
+		glmDimensions(model, dim);
+		double r = 0.0;
+		if (dim[0] >= dim[1] && dim[0] >= dim[2]) {
+			r = dim[0] * scaleFactor;
+		}
+		else if (dim[1] >= dim[0] && dim[1] >= dim[2]) {
+			r = dim[1] * scaleFactor;
+		}
+		else if (dim[2] >= dim[1] && dim[2] >= dim[0]) {
+			r = dim[2] * scaleFactor;
+		}
+
+		Model* m = new Model(position, r, 0, Vector(0, 1, 0));
+
+		//we parse all the triangles
+		for (size_t i = 0; i < model->numtriangles; i++) {
+
+			for (size_t j = 0; j < 3; j++){
+				//cout << model->triangles[i].vindices[j] << '\t';
+
+				for (size_t k = 0; k < 3; k++){
+					
+					dblArray[9 * i + 3 * j + k] = model->vertices[3*model->triangles[i].vindices[j]+k];
+				}
+				
+			}
+			//cout << '\n';
+			
+			Point p1 = Point(dblArray[9 * i]	, dblArray[9 * i + 1], dblArray[9 * i + 2]) + position;
+			Point p2 = Point(dblArray[9 * i + 3], dblArray[9 * i + 4], dblArray[9 * i + 5]) + position;
+			Point p3 = Point(dblArray[9 * i + 6], dblArray[9 * i + 7], dblArray[9 * i + 8]) + position;
+
+			Triangle t = Triangle(p1, p2, p3);
+			m->meshes.push_back(t);
+		}
+		
+		/*cout << "\n-------------------------------------------------------\n";
+
+		for (int i2 = 0; i2 < model->numtriangles * 9; i2++) {
+			cout << dblArray[i2] << '\t';
+
+			if ((i2+1) % 3 == 0) {
+				cout << '\n';
+			}
+			
+		}
+		cout << '\n';*/
+		returnObject = m;
+		glmDelete(model);
+		delete[] dblArray;
+
 	}
 
     if (returnObject) {

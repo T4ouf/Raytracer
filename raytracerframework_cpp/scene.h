@@ -37,7 +37,7 @@ typedef enum {
 	GOOCH			= 4
 } raytracingType;
 
-typedef struct GoochParameters{
+struct GoochParameters{
 	double alpha;
 	double beta;
 	double b;
