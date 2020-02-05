@@ -91,6 +91,17 @@ Material* Raytracer::parseMaterial(const YAML::Node& node){
 		m->texture = new Image(path.c_str());
 	}
 
+	auto celTexture = node.FindValue("cel");
+	if (celTexture == NULL) {
+		char* path = "defaultCel.png";
+		m->celTexture = new Image(path);
+	}
+	else {
+		std::string path;
+		node["cel"] >> path;
+		m->celTexture = new Image(path.c_str());
+	}
+
 	auto bump = node.FindValue("bumpMap");
 	if (bump == NULL) {
 		m->bumpMap = NULL;

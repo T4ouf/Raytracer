@@ -201,7 +201,7 @@ Color Scene::trace(const Ray &ray, int recurDepth){
 		//We use either the texture pixel color or the material color
 		Color mat;
 
-		//No Phong Shading if the object has a texture
+		//if the object has a texture
 		if (obj->material->texture != NULL) {
 			std::pair<double, double> UV = obj->getTextureCoords(hit, obj->rotationAxis, obj->rotationAngleDeg);
 			mat = Color(obj->material->texture->colorAt(UV.first, UV.second));
@@ -214,6 +214,12 @@ Color Scene::trace(const Ray &ray, int recurDepth){
 		//Ensure normalization
 		N = N.normalized();
 		V = V.normalized();
+
+		double angle = N.dot(V);
+		//Primary technique for outlining
+		if (angle < 0.3 && angle > -0.3) {
+			return Color(0.0, 0.0, 0.0);
+		}
 
 		Vector Diffuse = Color(0.0, 0.0, 0.0);
 		Vector Specular = Color(0.0, 0.0, 0.0); //The specular value doesn't include the object color
@@ -263,6 +269,156 @@ Color Scene::trace(const Ray &ray, int recurDepth){
 			color += Color(0.0, 0.0, 0.0);
 		}
 
+	}
+	else if(this->type == BLINNPHONG) {
+
+		//We use either the texture pixel color or the material color
+		Color mat;
+
+		std::pair<double, double> UV = obj->getTextureCoords(hit, obj->rotationAxis, obj->rotationAngleDeg);
+
+		//No Phong Shading if the object has a texture
+		if (obj->material->texture != NULL) {
+
+			mat = Color(obj->material->texture->colorAt(UV.first, UV.second));
+			//material->ks = 0;
+		}
+		else {
+			mat = material->color;
+		}
+
+		if (obj->material->bumpMap != NULL) {
+			N = (N + (2.0 * obj->material->bumpMap->colorAt(UV.first, UV.second) - 1)).normalized();
+		}
+
+		//Ensure normalization
+		N = N.normalized();
+		V = V.normalized();
+
+		Vector Diffuse = Color(0.0, 0.0, 0.0);
+		Vector Specular = Color(0.0, 0.0, 0.0); //The specular value doesn't include the object color
+		color += material->ka * mat;
+
+		//Compute diffuse and Specular part for each light source
+		for (auto l : lights) {
+
+			//We compute Light vector
+			Vector L = (l->position - hit).normalized();
+
+			//We compute the incomming ray vector
+			//Vector I = (-L).normalized();
+
+			//We compute the helfway vector
+			Vector H = (L + V) / (L+V).length() ;
+			
+			//do we compute diffuse and specular ? (false for hidden surface in the shadow)
+			bool diffSpecOK = true;
+
+			if (shadowComputation) {
+				diffSpecOK = !hiddenSurface(Ray(hit, L), *l);
+			}
+
+			//adding the diffuse component
+			auto input = L.dot(N) / (L.length() * N.length());
+			if (L.dot(N) > 0.0 && diffSpecOK) {
+				color += material->kd * l->color * input * mat;
+			}
+
+			// adding the specular componenent
+			if (diffSpecOK) {
+				color += material->ks * pow((N.dot(H)), 2*material->n) * l->color;
+			}
+		}
+
+
+		//We compute the reflected ray vector
+		if (recurDepth < maxRecurDepth - 1) {
+			Vector R2 = -2.0 * (N.dot(V)) * N + V;
+			R2 = R2.normalized();
+			Color addedColor = trace(Ray(hit, -R2), recurDepth + 1);
+			color += material->ks * addedColor;
+		}
+		if (recurDepth >= maxRecurDepth - 1) {
+			color += Color(0.0, 0.0, 0.0);
+		}
+
+	}
+	else if (this->type == CEL) {
+
+		//We use either the texture pixel color or the material color
+		Color mat;
+	
+		//Ensure normalization
+		N = N.normalized();
+		V = V.normalized();
+		double angle = N.dot(V);
+		//Primary technique for outlining
+		if (angle < 0.3 && angle > -0.3) {
+			return Color(0.0, 0.0, 0.0);
+		}
+
+		std::pair<double, double> UV = obj->getTextureCoords(hit, obj->rotationAxis, obj->rotationAngleDeg);
+
+		//No Phong Shading if the object has a texture
+		if (obj->material->texture != NULL) {
+
+			mat = Color(obj->material->texture->colorAt(UV.first, UV.second));
+			//material->ks = 0;
+		}
+		else {
+			mat = material->color;
+		}
+
+		if (obj->material->bumpMap != NULL) {
+			N = (N + (2.0 * obj->material->bumpMap->colorAt(UV.first, UV.second) - 1)).normalized();
+		}
+
+		
+
+		obj->material->color = Color(1.0, 1.0, 1.0);
+
+		Vector Diffuse = Color(0.0, 0.0, 0.0);
+		Vector Specular = Color(0.0, 0.0, 0.0); //The specular value doesn't include the object color
+		//color += material->ka * mat;
+
+		//Compute diffuse and Specular part for each light source
+		for (auto l : lights) {
+
+			//We compute Light vector
+			Vector L = (l->position - hit).normalized();
+
+			//We compute the incomming ray vector
+			//Vector I = (-L).normalized();
+
+			//We compute the reflected ray vector
+			Vector R = 2.0 * (N.dot(L)) * N - L;
+			R = R.normalized();
+
+			//do we compute diffuse and specular ? (false for hidden surface in the shadow)
+			bool diffSpecOK = true;
+
+			if (shadowComputation) {
+				diffSpecOK = !hiddenSurface(Ray(hit, L), *l);
+			}
+
+			//adding the diffuse component
+			auto input = L.dot(N) / (L.length() * N.length());
+			if (L.dot(N) > 0.0 && diffSpecOK) {
+				color += material->kd * l->color * input * mat;
+			}
+
+			// adding the specular componenent
+			if (R.dot(V) > 0.0 && diffSpecOK) {
+				//color += material->ks * pow((R.dot(V)), material->n) * l->color;
+			}
+		}
+
+		double intensity = (color.r+ color.g+ color.b)/3.0;
+
+		if (intensity > 1.0) intensity = 1.0;
+		if (intensity < 0.0) intensity = 0.0;
+
+		color = obj->material->celTexture->colorAt(intensity, 0);//Color(intensity, intensity, intensity );
 	}
 	else {
 		cerr << "UNSUPPORTED SCENE TYPE : " << this->type << " !\n";

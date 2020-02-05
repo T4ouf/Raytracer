@@ -34,7 +34,9 @@ typedef enum {
 	NORMALS			= 1,
 	ZBUFFER			= 2,
 	TEXTURECOORDS	= 3,
-	GOOCH			= 4
+	GOOCH			= 4,
+	BLINNPHONG		= 5,
+	CEL				= 6
 } raytracingType;
 
 struct GoochParameters{
