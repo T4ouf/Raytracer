@@ -13,7 +13,7 @@
 #  it should be clear that the #-character can be used to insert comments.
 
 #3 possible types : Phong = 0, Normals = 1, Z-Buffer = 2, UV-coords = 3
-RaytracingType: 3
+RaytracingType: 0
 
 Camera:
     eye: [0,0,3100]

@@ -112,6 +112,16 @@ Material* Raytracer::parseMaterial(const YAML::Node& node){
 		m->bumpMap = new Image(pathBump.c_str());
 	}
 
+	auto ambientOcclusion = node.FindValue("ambient");
+	if (ambientOcclusion == NULL) {
+		m->ambOccMap = NULL;
+	}
+	else {
+		std::string pathAmbOcc;
+		node["ambient"] >> pathAmbOcc;
+		m->ambOccMap = new Image(pathAmbOcc.c_str());
+	}
+
     node["color"] >> m->color;	
     node["ka"] >> m->ka;
     node["kd"] >> m->kd;

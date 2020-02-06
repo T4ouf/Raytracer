@@ -31,6 +31,7 @@ public:
 	Image* texture;		// texture Image
     Image* celTexture;  // cel shading texture
 	Image* bumpMap;		// Object BumpMap
+    Image* ambOccMap;   // Object ambient occlusion map
     double ka;          // ambient intensity
     double kd;          // diffuse intensity
     double ks;          // specular intensity 

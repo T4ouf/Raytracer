@@ -24,7 +24,7 @@ Hit Plane::intersect(const Ray& ray) {
 
 	//Cross product of 2 edges is the normal vector of the plane
 	N = edgeP0P1.cross(edgeP1P2).normalized();
-	 
+
 
 	//First we search for P the vector from the ray's origin to the inpact point
 
@@ -53,13 +53,13 @@ std::pair<double, double> Plane::getTextureCoords(Point p, Vector rotationAxis, 
 	Vector P1P = (p - this->points[0]);
 
 	double integerPart = 0.0;
- 
+
 	double u = P1P.dot(P1P2.normalized()) / P1P2.length();
-	u = u - double((int(u)));
+	u = u - floor(u);
 	//u = modf(u, &integerPart);
 
-	double v = P1P.dot(P1P3.normalized()) / P1P3.length();
-	v = v - double((int(v)));
+	double v = -P1P.dot(P1P3.normalized()) / P1P3.length();
+	v = v - floor(v);
 
 	//u = (u + 1.0) / 2.0;
 	//v = (v + 1.0) / 2.0;
