@@ -14,12 +14,6 @@
 //  http://isgwww.cs.uni-magdeburg.de/graphik/lehre/cg2/projekt/rtprojekt.html 
 //
 
-//---------------------------------------------------//
-//		ADVANCED GRAPHICS ASSIGNMENT (ET5 info)		 //
-//              THOMAS VON ASCHEBERG                 //
-//					 MY-LINH HO		                 //
-//---------------------------------------------------//
-
 #include "sphere.h"
 #include <iostream>
 
@@ -28,25 +22,15 @@
 
 /************************** Sphere **********************************/
 
+/**
+ * Method that defines the hit point between the sphere and a given ray
+ * @param[in] ray, the ray we want to compute the intersection
+ * @return the hit point and all its data (or Hit::NO_HIT() if no hit point)
+ */
 Hit Sphere::intersect(const Ray &ray)
 {
-    /****************************************************
-    * RT1.1: INTERSECTION CALCULATION
-    *
-    * Given: ray, position, r
-    * Sought: intersects? if true: *t
-    * 
-    * Insert calculation of ray/sphere intersection here. 
-    *
-    * You have the sphere's center (C) and radius (r) as well as
-    * the ray's origin (ray.O) and direction (ray.D).
-    *
-    * If the ray does not intersect the sphere, return Hit::NO_HIT().
-    * Otherwise, return an instance of Hit() with the distance of the
-    * intersection point from the ray origin as t and the normal as N (see example).
-    ****************************************************/
-
-    // place holder for actual intersection calculation
+	//////////////////////////////////////////
+	//First we look for the intersection point
 
 	//t is the distance from ray's origin to intersection point
     double t = 0;
@@ -57,6 +41,7 @@ Hit Sphere::intersect(const Ray &ray)
 	//We project L on the ray's direction (and get the total length)
 	double tca = L.dot(ray.D);
 
+	//if the sphere is behind the ray => no hit point
 	if (tca < 0) {
 		return Hit::NO_HIT();
 	}
@@ -68,7 +53,7 @@ Hit Sphere::intersect(const Ray &ray)
 		return Hit::NO_HIT();
 	}
 
-	//Normally impossible (but remove some NaN values of thc so we keep it
+	//Normally impossible (but remove some NaN values of thc so we keep it)
 	if (d > radius) {
 		return Hit::NO_HIT();
 	}
@@ -81,36 +66,24 @@ Hit Sphere::intersect(const Ray &ray)
 	//We also compute our vector from ray's origin to the impact point
 	Vector P = (ray.O + (t * ray.D));
 
-    /****************************************************
-    * RT1.2: NORMAL CALCULATION
-    *
-    * Given: t, C, r
-    * Sought: N
-    * 
-    * Insert calculation of the sphere's normal at the intersection point.
-    ****************************************************/
+	//////////////////////////////////////////
+    //Then we compute the normal at this point
 
 	//Vector from sphere center to impact point (normal to the surface)
 	Vector CP = P - position;
 	Vector N = (CP).normalized();
 
-	//Vector N = (Cimpact.normalized() + (ray.O + ray.D * t) + ray.O).normalized();
     return Hit(t,N);
 }
 
-
+/**
+ * Method that gives the UV coordinates of a given point on the sphere
+ * @param[in] p, the point where the UV coordinates are needed
+ * @param[in] rotationAxis, the the rotation axis of the sphere (for textures)
+ * @param[in] rotationAngleDeg, the rotation angle in degree (for textures)
+ * @return the UV coordinates as a pair of doubles
+ */
 std::pair<double, double> Sphere::getTextureCoords(Point p, Vector rotationAxis, double rotationAngleDeg) {
-	/*
-	Vector OP = p - this->position;
-	double v = (1+this->up.normalized().dot(OP.normalized()))/2; // cos(theta)
-
-	Vector OPPlaneProj = OP - (up.dot(OP)*up);
-
-	double u = (1 + side.normalized().dot(OPPlaneProj.normalized())) / 2;
-
-	return { u,v };
-	*/
-	
 
 	if (rotationAngleDeg == 0.0f) {
 		p = Transformations::rotationDeg(p - position, Vector(0, 0, 1), 90) + position;
@@ -119,12 +92,15 @@ std::pair<double, double> Sphere::getTextureCoords(Point p, Vector rotationAxis,
 		p = Transformations::rotationDeg(p - position, rotationAxis, rotationAngleDeg) + position;
 	}
 	
+	//trigonometric computations
 	double theta = acos((p.z - position.z) / radius);
 	double phi = atan2(p.y - position.y, p.x - position.x) - (M_PI);
 
+	//make the phi angle positive
 	while (phi < 0.0)
 		phi += 2 * M_PI;
 	
+	//Use spherical coordinate system
 	double u = phi / (2 * M_PI);
 	double v = theta / M_PI;
 

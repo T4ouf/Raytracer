@@ -12,12 +12,6 @@
 //  http://isgwww.cs.uni-magdeburg.de/graphik/lehre/cg2/projekt/rtprojekt.html 
 //
 
-//---------------------------------------------------//
-//		ADVANCED GRAPHICS ASSIGNMENT (ET5 info)		 //
-//              THOMAS VON ASCHEBERG                 //
-//					 MY-LINH HO		                 //
-//---------------------------------------------------//
-
 #include "image.h"
 #include "lodepng.h"
 #include <fstream>
@@ -34,7 +28,11 @@ bool Image::set_extent(int width, int height)
     return _pixel != 0;
 }
 
-
+/**
+ * Method that write the current image into a file
+ * @param[in] filename, the C-style string representing the name for the output file
+ * @return none
+ */
 void Image::write_png(const char* filename) const
 {
     std::vector<unsigned char> image;
@@ -55,7 +53,11 @@ void Image::write_png(const char* filename) const
     LodePNG::encode(filename, image, _width, _height);
 }
 
-
+/**
+ * Method that read and load a .png file into an image object
+ * @param[in] filename, the C-style string representing the name for the input file
+ * @return none
+ */
 void Image::read_png(const char* filename)
 {
     std::vector<unsigned char> buffer, image;

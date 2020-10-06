@@ -14,12 +14,6 @@
 //  http://isgwww.cs.uni-magdeburg.de/graphik/lehre/cg2/projekt/rtprojekt.html 
 //
 
-//---------------------------------------------------//
-//		ADVANCED GRAPHICS ASSIGNMENT (ET5 info)		 //
-//              THOMAS VON ASCHEBERG                 //
-//					 MY-LINH HO		                 //
-//---------------------------------------------------//
-
 #ifndef OBJECT_H_AXKLE0OF
 #define OBJECT_H_AXKLE0OF
 
@@ -27,18 +21,27 @@
 #include "light.h"
 #include "transformations.h"
 
-class Material;
+class Material; //precreate class material for circular inclusion issue
 
+/**
+ * Object abstract class :
+ * Representation of an abstract object (mesh) for our raytracer
+ * It is the base class for all object types
+ */
 class Object {
 public:
 	
     Material *material;
-	Vector rotationAxis;
+
+	Vector rotationAxis;        //small trick for rotation
 	double rotationAngleDeg;
 
     virtual ~Object() { }
 
-    virtual Hit intersect(const Ray &ray) = 0;
+    //Method to calculate the intersection between the object and a ray
+    virtual Hit intersect(const Ray &ray) = 0;  
+
+    //Method to get the UV coordinates of a point of the object
 	virtual std::pair<double, double> getTextureCoords(Point p, Vector rotationAxis, double rotationAngleDeg) { return {}; };
 };
 

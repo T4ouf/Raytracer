@@ -14,26 +14,25 @@
 //  http://isgwww.cs.uni-magdeburg.de/graphik/lehre/cg2/projekt/rtprojekt.html 
 //
 
-//---------------------------------------------------//
-//		ADVANCED GRAPHICS ASSIGNMENT (ET5 info)		 //
-//              THOMAS VON ASCHEBERG                 //
-//					 MY-LINH HO		                 //
-//---------------------------------------------------//
-
 #include "raytracer.h"
 
 int main(int argc, char *argv[])
 {
-    cout << "Advanced Graphics - Raytracer" << endl << endl;
+    std::cout << "Advanced Graphics - Raytracer" << std::endl << std::endl;
+
+    //arg[0] : program name
+    //arg[1] : YAML input scene file
+    //arg[2] (if exists) : .png output name
     if (argc < 2 || argc > 3) {
-        cerr << "Usage: " << argv[0] << " in-file [out-file.png]" << endl;
+        std::cerr << "Usage: " << argv[0] << " in-file [out-file.png]" << std::endl;
         return 1;
     }
 
     Raytracer raytracer;
 
+    //if we can't read the scene...
     if (!raytracer.readScene(argv[1])) {
-        cerr << "Error: reading scene from " << argv[1] << " failed - no output generated."<< endl;
+        std::cerr << "Error: reading scene from " << argv[1] << " failed - no output generated."<< std::endl;
         return 1;
     }
     std::string ofname;

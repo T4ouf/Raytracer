@@ -1,15 +1,14 @@
-//---------------------------------------------------//
-//		ADVANCED GRAPHICS ASSIGNMENT (ET5 info)		 //
-//              THOMAS VON ASCHEBERG                 //
-//					 MY-LINH HO		                 //
-//---------------------------------------------------//
-
 #include "plane.h"
 #include <iostream>
 #include <math.h>
 
 /************************** Plane **********************************/
 
+/**
+ * Method that defines the hit point between the plane and a given ray
+ * @param[in] ray, the ray we want to compute the intersection
+ * @return the hit point and all its data (or Hit::NO_HIT() if no hit point)
+ */
 Hit Plane::intersect(const Ray& ray) {
 
 	double t = 0.0f;
@@ -43,13 +42,20 @@ Hit Plane::intersect(const Ray& ray) {
 	return Hit(t, N);
 }
 
+/**
+ * Method that gives the UV coordinates of a given point on the plane
+ * @param[in] p, the point where the UV coordinates are needed
+ * @param[in] rotationAxis, the the rotation axis of the plane (not used currently)
+ * @param[in] rotationAngleDeg, the rotation angle (not used currently)
+ * @return the UV coordinates as a pair of doubles
+ */
 std::pair<double, double> Plane::getTextureCoords(Point p, Vector rotationAxis, double rotationAngleDeg) {
 
-	//Vecteur horizontal
+	//Horizontal vector
 	Vector P1P2 = (this->points[1] - this->points[0]);
-	//Vecteur vertical
+	//Vertical Vector 
 	Vector P1P3 = (this->points[2] - this->points[0]);
-	//Vecteur point
+	//Vector to the point
 	Vector P1P = (p - this->points[0]);
 
 	double integerPart = 0.0;

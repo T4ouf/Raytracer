@@ -3,9 +3,15 @@
 #define _USE_MATH_DEFINES
 #include <math.h>
 
-
+/**
+ * Transformations struct :
+ * Struct providing some basics 3D transformations
+ */
 struct Transformations {
 
+	/**
+	 * Method that provides a basic rotation transformation
+	 */
 	static Triple& rotation(const Triple& rotationCenter, const Vector& rotationAxis, double radiansAngle) {
 
 		Vector u = rotationAxis.normalized();
@@ -33,6 +39,10 @@ struct Transformations {
 		return Vector(row1.dot(rotationCenter), row2.dot(rotationCenter), row3.dot(rotationCenter));
 
 	}
+
+	/**
+	 * Method that provides a basic rotation transformation (in degree)
+	 */
 	static Triple& rotationDeg(const Triple& rotationCenter, const Vector& rotationAxis, double angle) {
 		return rotation(rotationCenter, rotationAxis, angle * (M_PI) / 180);
 	}

@@ -12,12 +12,6 @@
 //  http://isgwww.cs.uni-magdeburg.de/graphik/lehre/cg2/projekt/rtprojekt.html 
 //
 
-//---------------------------------------------------//
-//		ADVANCED GRAPHICS ASSIGNMENT (ET5 info)		 //
-//              THOMAS VON ASCHEBERG                 //
-//					 MY-LINH HO		                 //
-//---------------------------------------------------//
-
 #ifndef MATERIAL_H_TWMNT2EJ
 #define MATERIAL_H_TWMNT2EJ
 
@@ -25,12 +19,16 @@
 #include "triple.h"
 #include "image.h"
 
-class Material{
-public:
+/**
+ * Material struct :
+ * A material in our raytracer is just a group of data defining the material properties to apply
+ */
+struct Material{
+
     Color color;        // base color
 	Image* texture;		// texture Image
     Image* celTexture;  // cel shading texture
-	Image* bumpMap;		// Object BumpMap
+	Image* bumpMap;		// Object Bump map
     Image* ambOccMap;   // Object ambient occlusion map
     double ka;          // ambient intensity
     double kd;          // diffuse intensity

@@ -12,14 +12,14 @@
 //  http://isgwww.cs.uni-magdeburg.de/graphik/lehre/cg2/projekt/rtprojekt.html 
 //
 
-//---------------------------------------------------//
-//		ADVANCED GRAPHICS ASSIGNMENT (ET5 info)		 //
-//              THOMAS VON ASCHEBERG                 //
-//					 MY-LINH HO		                 //
-//---------------------------------------------------//
-
 #include "triple.h"
 
+/**
+ * Method redefining the standard output operator for triple
+ * @param[in,out] s, the output stream where to stream the triple
+ * @param[in] v, the triple to stream out
+ * @return the updated output stream reference
+ */
 ostream& operator<<(ostream& s, const Triple& v) 
 {
     return s << '[' << v.x << ',' << v.y << ',' << v.z << ']';

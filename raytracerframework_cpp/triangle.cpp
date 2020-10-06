@@ -1,8 +1,4 @@
-//---------------------------------------------------//
-//		ADVANCED GRAPHICS ASSIGNMENT (ET5 info)		 //
-//              THOMAS VON ASCHEBERG                 //
-//					 MY-LINH HO		                 //
-//---------------------------------------------------//
+
 
 #include "triangle.h"
 #include <iostream>
@@ -10,7 +6,11 @@
 
 /************************** Triangle **********************************/
 
-
+/**
+ * Method that defines the hit point between the triangle and a given ray
+ * @param[in] ray, the ray we want to compute the intersection
+ * @return the hit point and all its data (or Hit::NO_HIT() if no hit point)
+ */
 Hit Triangle::intersect(const Ray& ray) {
 
 	//Möller-Trumbore Algorithm for fast Triangle-Ray intersection
@@ -25,6 +25,8 @@ Hit Triangle::intersect(const Ray& ray) {
 	edge1 = vertex1 - vertex0;
 	edge2 = vertex2 - vertex0;
 	h = ray.D.cross(edge2);
+
+	//Check for parallel rays
 	a = edge1.dot(h);
 	if (a > -EPSILON && a < EPSILON) {
 		return Hit::NO_HIT();    // parallel ray => no hit
