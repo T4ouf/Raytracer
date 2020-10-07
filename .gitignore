@@ -17,6 +17,7 @@ bin-int/
 *.user
 *.vcxproj
 *.vcxproj.filter
+*.sln
 
 Errors/
 _old/
