@@ -1,0 +1,1 @@
+Raytracer.exe scene02.yaml

@@ -1,0 +1,1 @@
+Raytracer.exe scene01-lights-shadows.yaml

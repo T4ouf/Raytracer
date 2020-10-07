@@ -1,0 +1,97 @@
+#3 possible types : Phong = 0, Normals = 1, Z-Buffer = 2, UV-coords = 3, Gooch = 4, Blinn-Phong = 5
+RaytracingType: 5
+
+Camera:
+    eye: [200,350,-1000]
+    center: [200,100,0]
+    up: [0,1.0,0]
+    viewSize: [1920,1080]  #aspectRatio * baseLine 
+    
+Shadows: 0
+MaxRecursionDepth: 0
+SuperSampling:
+  factor: 2
+  
+Lights:
+- position: [-200,600,-1100]
+  color: [1.0,1.0,1.0]
+
+Objects:
+- type : model
+  path : "imperial.obj"
+  scaleFactor: 100
+  position: [200,200,-700]
+  material: 
+    color: [0.5,0.5,0.5]
+    ka: 0.05
+    kd: 0.9
+    ks: 0.1
+    n: 64
+# - type : model
+  # path : "imperial.obj"
+  # scaleFactor: 100
+  # position: [800,500,-550]
+  # material: 
+    # color: [0.5,0.5,0.5]
+    # ka: 0.05
+    # kd: 0.9
+    # ks: 0.1
+    # n: 64
+# - type : model
+  # path : "imperial.obj"
+  # scaleFactor: 100
+  # position: [-404,445,-500]
+  # material: 
+    # color: [0.5,0.5,0.5]
+    # ka: 0.05
+    # kd: 0.9
+    # ks: 0.1
+    # n: 64
+- type: sphere
+  position: [0,50,1700]
+  radius: 1500
+  rotation-axis : [1,0,0]
+  angle : 75
+  material: # grey
+    texture: stars.png
+    color: [1,1,1]
+    ka: 0.1
+    kd: 0.9
+    ks: 0
+    n: 1
+- type: sphere
+  position: [-2000,0,1300]
+  radius: 1500
+  rotation-axis : [1,1,0]
+  angle : 44
+  material: # grey
+    texture: stars.png
+    color: [1,1,1]
+    ka: 0.1
+    kd: 0.9
+    ks: 0
+    n: 1
+- type: sphere
+  position: [2000,0,2300]
+  radius: 1500
+  rotation-axis : [1,1,1]
+  angle : 10
+  material: # grey
+    texture: stars.png
+    color: [1,1,1]
+    ka: 0.1
+    kd: 0.9
+    ks: 0
+    n: 1
+- type: sphere
+  position: [200,100,500]
+  radius: 400
+  rotation-axis : [0.8,-1,0]
+  angle : 90
+  material: # grey
+    texture : earthmap1k.png
+    color: [1,1,1]
+    ka: 0.1
+    kd: 0.8
+    ks: 0
+    n: 1

@@ -1,0 +1,278 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="lib">
+      <UniqueIdentifier>{3C8C880B-A895-887C-3111-9F7C9D19947C}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="lib\freeglut">
+      <UniqueIdentifier>{E9B6D9FD-D519-69A2-7E9F-A1586AE13425}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="lib\glm">
+      <UniqueIdentifier>{8BD44779-F7B3-C614-00CC-51EB6C2A2D76}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="lib\lodePNG">
+      <UniqueIdentifier>{14B05D52-8065-D647-095A-D01E750ECD4B}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="lib\yaml">
+      <UniqueIdentifier>{5E164CA2-4AE3-A6AD-73FC-94555F28DC3B}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="primitives">
+      <UniqueIdentifier>{513AA084-3DF2-E1D1-A6F9-BA2D92D07CC2}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="src\image.h" />
+    <ClInclude Include="src\lib\freeglut\freeglut.h">
+      <Filter>lib\freeglut</Filter>
+    </ClInclude>
+    <ClInclude Include="src\lib\freeglut\freeglut_ext.h">
+      <Filter>lib\freeglut</Filter>
+    </ClInclude>
+    <ClInclude Include="src\lib\freeglut\freeglut_std.h">
+      <Filter>lib\freeglut</Filter>
+    </ClInclude>
+    <ClInclude Include="src\lib\freeglut\glut.h">
+      <Filter>lib\freeglut</Filter>
+    </ClInclude>
+    <ClInclude Include="src\lib\glm\glm.h">
+      <Filter>lib\glm</Filter>
+    </ClInclude>
+    <ClInclude Include="src\lib\lodePNG\lodepng.h">
+      <Filter>lib\lodePNG</Filter>
+    </ClInclude>
+    <ClInclude Include="src\lib\yaml\aliascontent.h">
+      <Filter>lib\yaml</Filter>
+    </ClInclude>
+    <ClInclude Include="src\lib\yaml\content.h">
+      <Filter>lib\yaml</Filter>
+    </ClInclude>
+    <ClInclude Include="src\lib\yaml\conversion.h">
+      <Filter>lib\yaml</Filter>
+    </ClInclude>
+    <ClInclude Include="src\lib\yaml\crt.h">
+      <Filter>lib\yaml</Filter>
+    </ClInclude>
+    <ClInclude Include="src\lib\yaml\emitter.h">
+      <Filter>lib\yaml</Filter>
+    </ClInclude>
+    <ClInclude Include="src\lib\yaml\emittermanip.h">
+      <Filter>lib\yaml</Filter>
+    </ClInclude>
+    <ClInclude Include="src\lib\yaml\emitterstate.h">
+      <Filter>lib\yaml</Filter>
+    </ClInclude>
+    <ClInclude Include="src\lib\yaml\emitterutils.h">
+      <Filter>lib\yaml</Filter>
+    </ClInclude>
+    <ClInclude Include="src\lib\yaml\exceptions.h">
+      <Filter>lib\yaml</Filter>
+    </ClInclude>
+    <ClInclude Include="src\lib\yaml\exp.h">
+      <Filter>lib\yaml</Filter>
+    </ClInclude>
+    <ClInclude Include="src\lib\yaml\indentation.h">
+      <Filter>lib\yaml</Filter>
+    </ClInclude>
+    <ClInclude Include="src\lib\yaml\iterator.h">
+      <Filter>lib\yaml</Filter>
+    </ClInclude>
+    <ClInclude Include="src\lib\yaml\iterpriv.h">
+      <Filter>lib\yaml</Filter>
+    </ClInclude>
+    <ClInclude Include="src\lib\yaml\ltnode.h">
+      <Filter>lib\yaml</Filter>
+    </ClInclude>
+    <ClInclude Include="src\lib\yaml\map.h">
+      <Filter>lib\yaml</Filter>
+    </ClInclude>
+    <ClInclude Include="src\lib\yaml\mark.h">
+      <Filter>lib\yaml</Filter>
+    </ClInclude>
+    <ClInclude Include="src\lib\yaml\node.h">
+      <Filter>lib\yaml</Filter>
+    </ClInclude>
+    <ClInclude Include="src\lib\yaml\nodeimpl.h">
+      <Filter>lib\yaml</Filter>
+    </ClInclude>
+    <ClInclude Include="src\lib\yaml\nodereadimpl.h">
+      <Filter>lib\yaml</Filter>
+    </ClInclude>
+    <ClInclude Include="src\lib\yaml\nodeutil.h">
+      <Filter>lib\yaml</Filter>
+    </ClInclude>
+    <ClInclude Include="src\lib\yaml\noncopyable.h">
+      <Filter>lib\yaml</Filter>
+    </ClInclude>
+    <ClInclude Include="src\lib\yaml\null.h">
+      <Filter>lib\yaml</Filter>
+    </ClInclude>
+    <ClInclude Include="src\lib\yaml\ostream.h">
+      <Filter>lib\yaml</Filter>
+    </ClInclude>
+    <ClInclude Include="src\lib\yaml\parser.h">
+      <Filter>lib\yaml</Filter>
+    </ClInclude>
+    <ClInclude Include="src\lib\yaml\parserstate.h">
+      <Filter>lib\yaml</Filter>
+    </ClInclude>
+    <ClInclude Include="src\lib\yaml\regex.h">
+      <Filter>lib\yaml</Filter>
+    </ClInclude>
+    <ClInclude Include="src\lib\yaml\regeximpl.h">
+      <Filter>lib\yaml</Filter>
+    </ClInclude>
+    <ClInclude Include="src\lib\yaml\scalar.h">
+      <Filter>lib\yaml</Filter>
+    </ClInclude>
+    <ClInclude Include="src\lib\yaml\scanner.h">
+      <Filter>lib\yaml</Filter>
+    </ClInclude>
+    <ClInclude Include="src\lib\yaml\scanscalar.h">
+      <Filter>lib\yaml</Filter>
+    </ClInclude>
+    <ClInclude Include="src\lib\yaml\sequence.h">
+      <Filter>lib\yaml</Filter>
+    </ClInclude>
+    <ClInclude Include="src\lib\yaml\setting.h">
+      <Filter>lib\yaml</Filter>
+    </ClInclude>
+    <ClInclude Include="src\lib\yaml\stlemitter.h">
+      <Filter>lib\yaml</Filter>
+    </ClInclude>
+    <ClInclude Include="src\lib\yaml\stream.h">
+      <Filter>lib\yaml</Filter>
+    </ClInclude>
+    <ClInclude Include="src\lib\yaml\streamcharsource.h">
+      <Filter>lib\yaml</Filter>
+    </ClInclude>
+    <ClInclude Include="src\lib\yaml\stringsource.h">
+      <Filter>lib\yaml</Filter>
+    </ClInclude>
+    <ClInclude Include="src\lib\yaml\token.h">
+      <Filter>lib\yaml</Filter>
+    </ClInclude>
+    <ClInclude Include="src\lib\yaml\yaml.h">
+      <Filter>lib\yaml</Filter>
+    </ClInclude>
+    <ClInclude Include="src\light.h" />
+    <ClInclude Include="src\material.h" />
+    <ClInclude Include="src\primitives\Plane.h">
+      <Filter>primitives</Filter>
+    </ClInclude>
+    <ClInclude Include="src\primitives\model.h">
+      <Filter>primitives</Filter>
+    </ClInclude>
+    <ClInclude Include="src\primitives\object.h">
+      <Filter>primitives</Filter>
+    </ClInclude>
+    <ClInclude Include="src\primitives\quad.h">
+      <Filter>primitives</Filter>
+    </ClInclude>
+    <ClInclude Include="src\primitives\sphere.h">
+      <Filter>primitives</Filter>
+    </ClInclude>
+    <ClInclude Include="src\primitives\triangle.h">
+      <Filter>primitives</Filter>
+    </ClInclude>
+    <ClInclude Include="src\raytracer.h" />
+    <ClInclude Include="src\scene.h" />
+    <ClInclude Include="src\transformations.h" />
+    <ClInclude Include="src\triple.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="src\image.cpp" />
+    <ClCompile Include="src\lib\glm\glm.c">
+      <Filter>lib\glm</Filter>
+    </ClCompile>
+    <ClCompile Include="src\lib\lodePNG\lodepng.cpp">
+      <Filter>lib\lodePNG</Filter>
+    </ClCompile>
+    <ClCompile Include="src\lib\yaml\aliascontent.cpp">
+      <Filter>lib\yaml</Filter>
+    </ClCompile>
+    <ClCompile Include="src\lib\yaml\content.cpp">
+      <Filter>lib\yaml</Filter>
+    </ClCompile>
+    <ClCompile Include="src\lib\yaml\conversion.cpp">
+      <Filter>lib\yaml</Filter>
+    </ClCompile>
+    <ClCompile Include="src\lib\yaml\emitter.cpp">
+      <Filter>lib\yaml</Filter>
+    </ClCompile>
+    <ClCompile Include="src\lib\yaml\emitterstate.cpp">
+      <Filter>lib\yaml</Filter>
+    </ClCompile>
+    <ClCompile Include="src\lib\yaml\emitterutils.cpp">
+      <Filter>lib\yaml</Filter>
+    </ClCompile>
+    <ClCompile Include="src\lib\yaml\exp.cpp">
+      <Filter>lib\yaml</Filter>
+    </ClCompile>
+    <ClCompile Include="src\lib\yaml\iterator.cpp">
+      <Filter>lib\yaml</Filter>
+    </ClCompile>
+    <ClCompile Include="src\lib\yaml\map.cpp">
+      <Filter>lib\yaml</Filter>
+    </ClCompile>
+    <ClCompile Include="src\lib\yaml\node.cpp">
+      <Filter>lib\yaml</Filter>
+    </ClCompile>
+    <ClCompile Include="src\lib\yaml\null.cpp">
+      <Filter>lib\yaml</Filter>
+    </ClCompile>
+    <ClCompile Include="src\lib\yaml\ostream.cpp">
+      <Filter>lib\yaml</Filter>
+    </ClCompile>
+    <ClCompile Include="src\lib\yaml\parser.cpp">
+      <Filter>lib\yaml</Filter>
+    </ClCompile>
+    <ClCompile Include="src\lib\yaml\parserstate.cpp">
+      <Filter>lib\yaml</Filter>
+    </ClCompile>
+    <ClCompile Include="src\lib\yaml\regex.cpp">
+      <Filter>lib\yaml</Filter>
+    </ClCompile>
+    <ClCompile Include="src\lib\yaml\scalar.cpp">
+      <Filter>lib\yaml</Filter>
+    </ClCompile>
+    <ClCompile Include="src\lib\yaml\scanner.cpp">
+      <Filter>lib\yaml</Filter>
+    </ClCompile>
+    <ClCompile Include="src\lib\yaml\scanscalar.cpp">
+      <Filter>lib\yaml</Filter>
+    </ClCompile>
+    <ClCompile Include="src\lib\yaml\scantoken.cpp">
+      <Filter>lib\yaml</Filter>
+    </ClCompile>
+    <ClCompile Include="src\lib\yaml\sequence.cpp">
+      <Filter>lib\yaml</Filter>
+    </ClCompile>
+    <ClCompile Include="src\lib\yaml\simplekey.cpp">
+      <Filter>lib\yaml</Filter>
+    </ClCompile>
+    <ClCompile Include="src\lib\yaml\stream.cpp">
+      <Filter>lib\yaml</Filter>
+    </ClCompile>
+    <ClCompile Include="src\light.cpp" />
+    <ClCompile Include="src\main.cpp" />
+    <ClCompile Include="src\material.cpp" />
+    <ClCompile Include="src\primitives\Plane.cpp">
+      <Filter>primitives</Filter>
+    </ClCompile>
+    <ClCompile Include="src\primitives\model.cpp">
+      <Filter>primitives</Filter>
+    </ClCompile>
+    <ClCompile Include="src\primitives\quad.cpp">
+      <Filter>primitives</Filter>
+    </ClCompile>
+    <ClCompile Include="src\primitives\sphere.cpp">
+      <Filter>primitives</Filter>
+    </ClCompile>
+    <ClCompile Include="src\primitives\triangle.cpp">
+      <Filter>primitives</Filter>
+    </ClCompile>
+    <ClCompile Include="src\raytracer.cpp" />
+    <ClCompile Include="src\scene.cpp" />
+    <ClCompile Include="src\triple.cpp" />
+  </ItemGroup>
+</Project>

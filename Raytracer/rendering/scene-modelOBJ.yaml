@@ -1,0 +1,89 @@
+#3 possible types : Phong = 0, Normals = 1, Z-Buffer = 2, UV-coords = 3, Gooch = 4
+RaytracingType: 0
+
+Camera:
+    eye: [200,200,1250]
+    center: [200,200,0]
+    up: [0,1,0]
+    viewSize: [800,800]  #aspectRatio * baseLine 
+    
+Shadows: 1
+MaxRecursionDepth: 3
+SuperSampling:
+  factor: 2
+  
+Lights:
+- position: [-600,600,1500]
+  color: [0.4,0.4,0.8]
+- position: [1000,600,1500]
+  color: [0.8,0.8,0.4]
+
+Objects:
+- type : model
+  path : "dolphins.obj"
+  scaleFactor: 15
+  position: [200,200,200]
+  material: 
+    color: [0.1,0.25,0.65]
+    ka: 0.1
+    kd: 0.9
+    ks: 0.5
+    n: 64
+- type : model
+  path : "cube.obj"
+  scaleFactor: 5
+  position: [600,500,400]
+  material: 
+    color: [0.7,0.3,0.3]
+    ka: 0.1
+    kd: 0.6
+    ks: 0.5
+    n: 64
+- type : model
+  path : "teddy.obj"
+  scaleFactor: 5
+  position: [200,400,200]
+  material: 
+    color: [0.4,0.13,0.04]
+    ka: 0.3
+    kd: 0.4
+    ks: 0.0
+    n: 64
+- type : model
+  path : "tetrahedron.obj"
+  scaleFactor: 15
+  position: [0,400,200]
+  material: 
+    color: [1.0,0.5,0.5]
+    ka: 0.1
+    kd: 0.8
+    ks: 0.25
+    n: 64
+- type: sphere
+  position: [200,200,-1000]
+  radius: 1000
+  material: # grey
+    texture : bluegrid.png
+    color: [0.4,0.4,0.4]
+    ka: 0.1
+    kd: 0.65
+    ks: 0
+    n: 1
+# - type: sphere
+  # position: [1800,200,-500]
+  # radius: 1000
+  # material: # grey
+    # color: [0.4,0.4,0.4]
+    # ka: 0
+    # kd: 0
+    # ks: 1
+    # n: 1
+# - type: sphere
+  # position: [-1600,200,-500]
+  # radius: 1000
+  # material: # grey
+    # color: [0.4,0.4,0.4]
+    # ka: 0
+    # kd: 0
+    # ks: 1
+    # n: 1

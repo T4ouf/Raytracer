@@ -1,0 +1,199 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup Label="ProjectConfigurations">
+    <ProjectConfiguration Include="Debug|x64">
+      <Configuration>Debug</Configuration>
+      <Platform>x64</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Release|x64">
+      <Configuration>Release</Configuration>
+      <Platform>x64</Platform>
+    </ProjectConfiguration>
+  </ItemGroup>
+  <PropertyGroup Label="Globals">
+    <ProjectGuid>{32530D40-9EBD-C1B6-E7FB-725C53A59F0B}</ProjectGuid>
+    <IgnoreWarnCompileDuplicatedFilename>true</IgnoreWarnCompileDuplicatedFilename>
+    <Keyword>Win32Proj</Keyword>
+    <RootNamespace>Raytracer</RootNamespace>
+    <WindowsTargetPlatformVersion>10.0</WindowsTargetPlatformVersion>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'" Label="Configuration">
+    <ConfigurationType>Application</ConfigurationType>
+    <UseDebugLibraries>true</UseDebugLibraries>
+    <CharacterSet>Unicode</CharacterSet>
+    <PlatformToolset>v142</PlatformToolset>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'" Label="Configuration">
+    <ConfigurationType>Application</ConfigurationType>
+    <UseDebugLibraries>false</UseDebugLibraries>
+    <CharacterSet>Unicode</CharacterSet>
+    <PlatformToolset>v142</PlatformToolset>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.props" />
+  <ImportGroup Label="ExtensionSettings">
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <PropertyGroup Label="UserMacros" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+    <LinkIncremental>true</LinkIncremental>
+    <OutDir>..\bin\Debug-windows-x86_64\Raytracer\</OutDir>
+    <IntDir>..\bin-int\Debug-windows-x86_64\Raytracer\</IntDir>
+    <TargetName>Raytracer</TargetName>
+    <TargetExt>.exe</TargetExt>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
+    <LinkIncremental>false</LinkIncremental>
+    <OutDir>..\bin\Release-windows-x86_64\Raytracer\</OutDir>
+    <IntDir>..\bin-int\Release-windows-x86_64\Raytracer\</IntDir>
+    <TargetName>Raytracer</TargetName>
+    <TargetExt>.exe</TargetExt>
+  </PropertyGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+    <ClCompile>
+      <PrecompiledHeader>NotUsing</PrecompiledHeader>
+      <WarningLevel>Level3</WarningLevel>
+      <PreprocessorDefinitions>RT_DEBUG;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <AdditionalIncludeDirectories>src;src\lib\freeglut;src\lib\glm;src\lib\lodePNG;src\lib\yaml;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <DebugInformationFormat>EditAndContinue</DebugInformationFormat>
+      <Optimization>Disabled</Optimization>
+      <RuntimeLibrary>MultiThreadedDebugDLL</RuntimeLibrary>
+    </ClCompile>
+    <Link>
+      <SubSystem>Console</SubSystem>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+      <AdditionalDependencies>src\lib\freeglut\freeglut.lib;%(AdditionalDependencies)</AdditionalDependencies>
+    </Link>
+    <PostBuildEvent>
+      <Command>IF EXIST ..\bin\Debug-windows-x86_64\Raytracer\Raytracer.exe\ (xcopy /Q /E /Y /I ..\bin\Debug-windows-x86_64\Raytracer\Raytracer.exe $(ProjectDir)\rendering &gt; nul) ELSE (xcopy /Q /Y /I ..\bin\Debug-windows-x86_64\Raytracer\Raytracer.exe $(ProjectDir)\rendering &gt; nul)</Command>
+    </PostBuildEvent>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
+    <ClCompile>
+      <PrecompiledHeader>NotUsing</PrecompiledHeader>
+      <WarningLevel>Level3</WarningLevel>
+      <PreprocessorDefinitions>RT_RELEASE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <AdditionalIncludeDirectories>src;src\lib\freeglut;src\lib\glm;src\lib\lodePNG;src\lib\yaml;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <Optimization>Full</Optimization>
+      <FunctionLevelLinking>true</FunctionLevelLinking>
+      <IntrinsicFunctions>true</IntrinsicFunctions>
+      <MinimalRebuild>false</MinimalRebuild>
+      <StringPooling>true</StringPooling>
+      <RuntimeLibrary>MultiThreadedDLL</RuntimeLibrary>
+    </ClCompile>
+    <Link>
+      <SubSystem>Console</SubSystem>
+      <EnableCOMDATFolding>true</EnableCOMDATFolding>
+      <OptimizeReferences>true</OptimizeReferences>
+      <AdditionalDependencies>src\lib\freeglut\freeglut.lib;%(AdditionalDependencies)</AdditionalDependencies>
+    </Link>
+    <PostBuildEvent>
+      <Command>IF EXIST ..\bin\Release-windows-x86_64\Raytracer\Raytracer.exe\ (xcopy /Q /E /Y /I ..\bin\Release-windows-x86_64\Raytracer\Raytracer.exe $(ProjectDir)\rendering &gt; nul) ELSE (xcopy /Q /Y /I ..\bin\Release-windows-x86_64\Raytracer\Raytracer.exe $(ProjectDir)\rendering &gt; nul)</Command>
+    </PostBuildEvent>
+  </ItemDefinitionGroup>
+  <ItemGroup>
+    <ClInclude Include="src\image.h" />
+    <ClInclude Include="src\lib\freeglut\freeglut.h" />
+    <ClInclude Include="src\lib\freeglut\freeglut_ext.h" />
+    <ClInclude Include="src\lib\freeglut\freeglut_std.h" />
+    <ClInclude Include="src\lib\freeglut\glut.h" />
+    <ClInclude Include="src\lib\glm\glm.h" />
+    <ClInclude Include="src\lib\lodePNG\lodepng.h" />
+    <ClInclude Include="src\lib\yaml\aliascontent.h" />
+    <ClInclude Include="src\lib\yaml\content.h" />
+    <ClInclude Include="src\lib\yaml\conversion.h" />
+    <ClInclude Include="src\lib\yaml\crt.h" />
+    <ClInclude Include="src\lib\yaml\emitter.h" />
+    <ClInclude Include="src\lib\yaml\emittermanip.h" />
+    <ClInclude Include="src\lib\yaml\emitterstate.h" />
+    <ClInclude Include="src\lib\yaml\emitterutils.h" />
+    <ClInclude Include="src\lib\yaml\exceptions.h" />
+    <ClInclude Include="src\lib\yaml\exp.h" />
+    <ClInclude Include="src\lib\yaml\indentation.h" />
+    <ClInclude Include="src\lib\yaml\iterator.h" />
+    <ClInclude Include="src\lib\yaml\iterpriv.h" />
+    <ClInclude Include="src\lib\yaml\ltnode.h" />
+    <ClInclude Include="src\lib\yaml\map.h" />
+    <ClInclude Include="src\lib\yaml\mark.h" />
+    <ClInclude Include="src\lib\yaml\node.h" />
+    <ClInclude Include="src\lib\yaml\nodeimpl.h" />
+    <ClInclude Include="src\lib\yaml\nodereadimpl.h" />
+    <ClInclude Include="src\lib\yaml\nodeutil.h" />
+    <ClInclude Include="src\lib\yaml\noncopyable.h" />
+    <ClInclude Include="src\lib\yaml\null.h" />
+    <ClInclude Include="src\lib\yaml\ostream.h" />
+    <ClInclude Include="src\lib\yaml\parser.h" />
+    <ClInclude Include="src\lib\yaml\parserstate.h" />
+    <ClInclude Include="src\lib\yaml\regex.h" />
+    <ClInclude Include="src\lib\yaml\regeximpl.h" />
+    <ClInclude Include="src\lib\yaml\scalar.h" />
+    <ClInclude Include="src\lib\yaml\scanner.h" />
+    <ClInclude Include="src\lib\yaml\scanscalar.h" />
+    <ClInclude Include="src\lib\yaml\sequence.h" />
+    <ClInclude Include="src\lib\yaml\setting.h" />
+    <ClInclude Include="src\lib\yaml\stlemitter.h" />
+    <ClInclude Include="src\lib\yaml\stream.h" />
+    <ClInclude Include="src\lib\yaml\streamcharsource.h" />
+    <ClInclude Include="src\lib\yaml\stringsource.h" />
+    <ClInclude Include="src\lib\yaml\token.h" />
+    <ClInclude Include="src\lib\yaml\yaml.h" />
+    <ClInclude Include="src\light.h" />
+    <ClInclude Include="src\material.h" />
+    <ClInclude Include="src\primitives\Plane.h" />
+    <ClInclude Include="src\primitives\model.h" />
+    <ClInclude Include="src\primitives\object.h" />
+    <ClInclude Include="src\primitives\quad.h" />
+    <ClInclude Include="src\primitives\sphere.h" />
+    <ClInclude Include="src\primitives\triangle.h" />
+    <ClInclude Include="src\raytracer.h" />
+    <ClInclude Include="src\scene.h" />
+    <ClInclude Include="src\transformations.h" />
+    <ClInclude Include="src\triple.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="src\image.cpp" />
+    <ClCompile Include="src\lib\glm\glm.c" />
+    <ClCompile Include="src\lib\lodePNG\lodepng.cpp" />
+    <ClCompile Include="src\lib\yaml\aliascontent.cpp" />
+    <ClCompile Include="src\lib\yaml\content.cpp" />
+    <ClCompile Include="src\lib\yaml\conversion.cpp" />
+    <ClCompile Include="src\lib\yaml\emitter.cpp" />
+    <ClCompile Include="src\lib\yaml\emitterstate.cpp" />
+    <ClCompile Include="src\lib\yaml\emitterutils.cpp" />
+    <ClCompile Include="src\lib\yaml\exp.cpp" />
+    <ClCompile Include="src\lib\yaml\iterator.cpp" />
+    <ClCompile Include="src\lib\yaml\map.cpp" />
+    <ClCompile Include="src\lib\yaml\node.cpp" />
+    <ClCompile Include="src\lib\yaml\null.cpp" />
+    <ClCompile Include="src\lib\yaml\ostream.cpp" />
+    <ClCompile Include="src\lib\yaml\parser.cpp" />
+    <ClCompile Include="src\lib\yaml\parserstate.cpp" />
+    <ClCompile Include="src\lib\yaml\regex.cpp" />
+    <ClCompile Include="src\lib\yaml\scalar.cpp" />
+    <ClCompile Include="src\lib\yaml\scanner.cpp" />
+    <ClCompile Include="src\lib\yaml\scanscalar.cpp" />
+    <ClCompile Include="src\lib\yaml\scantoken.cpp" />
+    <ClCompile Include="src\lib\yaml\sequence.cpp" />
+    <ClCompile Include="src\lib\yaml\simplekey.cpp" />
+    <ClCompile Include="src\lib\yaml\stream.cpp" />
+    <ClCompile Include="src\light.cpp" />
+    <ClCompile Include="src\main.cpp" />
+    <ClCompile Include="src\material.cpp" />
+    <ClCompile Include="src\primitives\Plane.cpp" />
+    <ClCompile Include="src\primitives\model.cpp" />
+    <ClCompile Include="src\primitives\quad.cpp" />
+    <ClCompile Include="src\primitives\sphere.cpp" />
+    <ClCompile Include="src\primitives\triangle.cpp" />
+    <ClCompile Include="src\raytracer.cpp" />
+    <ClCompile Include="src\scene.cpp" />
+    <ClCompile Include="src\triple.cpp" />
+  </ItemGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
+  <ImportGroup Label="ExtensionTargets">
+  </ImportGroup>
+</Project>

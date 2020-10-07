@@ -1,0 +1,91 @@
+#3 possible types : Phong = 0, Normals = 1, Z-Buffer = 2, UV-coords = 3, Gooch = 4, Blinn-Phong = 5
+RaytracingType: 5
+
+Camera:
+    eye: [200,0,1000]
+    center: [200,0,0]
+    up: [0,1.0,0]
+    viewSize: [800,800]  #aspectRatio * baseLine 
+    
+Shadows: 0
+MaxRecursionDepth: 5
+SuperSampling:
+  factor: 2
+  
+Lights:
+- position: [-444,600,1500]
+  color: [1,1,1]
+- position: [0,600,1500]
+  color: [1,1,1]
+- position: [444,600,1500]
+  color: [1,1,1]
+
+Objects:
+- type: sphere
+  position: [90,100,-3600]
+  radius: 4000
+  material:
+    color: [0.1,0.4,0.7]
+    ka: 0.2
+    kd: 0.8
+    ks: 1
+    n: 2048
+- type: sphere
+  position: [-4500,100,0]
+  radius: 4000
+  material:
+    color: [0.1,0.4,0.7]
+    ka: 0.2
+    kd: 0.8
+    ks: 1
+    n: 2048
+- type : model
+  path : "dolphins.obj"
+  scaleFactor: 27
+  position: [200,-250,1100]
+  material: 
+    color: [0.5,0.5,0.5]
+    ka: 0.05
+    kd: 0.9
+    ks: 0.1
+    n: 64
+- type : model
+  path : "dolphins.obj"
+  scaleFactor: 34
+  position: [457,145,1044]
+  material: 
+    color: [0.5,0.5,0.5]
+    ka: 0.05
+    kd: 0.9
+    ks: 0.1
+    n: 64
+- type : model
+  path : "dolphins.obj"
+  scaleFactor: 45
+  position: [57,-44,1033]
+  material: 
+    color: [0.5,0.5,0.5]
+    ka: 0.05
+    kd: 0.9
+    ks: 0.1
+    n: 64  
+- type : model
+  path : "dolphins.obj"
+  scaleFactor: 45
+  position: [-157,244,1033]
+  material: 
+    color: [0.5,0.5,0.5]
+    ka: 0.05
+    kd: 0.9
+    ks: 0.1
+    n: 64  
+- type : model
+  path : "dolphins.obj"
+  scaleFactor: 42
+  position: [100,-104,1133]
+  material: 
+    color: [0.5,0.5,0.5]
+    ka: 0.05
+    kd: 0.9
+    ks: 0.1
+    n: 64        
