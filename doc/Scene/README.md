@@ -1,4 +1,4 @@
-# Scene example
+# Scene format
 ## Introduction
 This is an explanation of the file format used for our scene storage. Then there is a basic example of what a YAML scene looks like. For more example you can look at all the scenes in the "rendering" folder.
 
