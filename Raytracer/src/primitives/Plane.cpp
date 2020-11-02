@@ -8,6 +8,7 @@
  * Method that defines the hit point between the plane and a given ray
  * @param[in] ray, the ray we want to compute the intersection
  * @return the hit point and all its data (or Hit::NO_HIT() if no hit point)
+ * @see https://www.cs.princeton.edu/courses/archive/fall00/cs426/lectures/raycast/sld017.htm
  */
 Hit Plane::intersect(const Ray& ray) {
 

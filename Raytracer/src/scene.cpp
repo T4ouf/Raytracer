@@ -388,6 +388,8 @@ Color Scene::trace(const Ray &ray, int recurDepth){
 
 		std::pair<double, double> UV = obj->getTextureCoords(hit, obj->rotationAxis, obj->rotationAngleDeg);
 
+		Color ambientOcclusionFactor = Color(1.0, 1.0, 1.0);
+
 		//No Phong Shading if the object has a texture
 		if (obj->material->texture != NULL) {
 
@@ -402,7 +404,11 @@ Color Scene::trace(const Ray &ray, int recurDepth){
 			N = (N + (2.0 * obj->material->bumpMap->colorAt(UV.first, UV.second) - 1)).normalized();
 		}
 
-		
+		//update ambiant occlusion factor if the object has an ambiant occlusion map
+		if (obj->material->ambOccMap != NULL) {
+			ambientOcclusionFactor = obj->material->ambOccMap->colorAt(UV.first, UV.second);
+			//Ambient = Color(0, 0, 0);
+		}
 
 		obj->material->color = Color(1.0, 1.0, 1.0);
 
@@ -433,7 +439,7 @@ Color Scene::trace(const Ray &ray, int recurDepth){
 			//adding the diffuse component
 			auto input = L.dot(N) / (L.length() * N.length());
 			if (L.dot(N) > 0.0 && diffSpecOK) {
-				color += material->kd * l->color * input * mat;
+				color += material->kd * l->color * input * mat * ambientOcclusionFactor;
 			}
 
 			// adding the specular componenent
