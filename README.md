@@ -1,7 +1,7 @@
 # Raytracer
 
 ## Introduction
-Raytracing project first developed for the “Advanced Graphics” course at Polytech Paris-Sud that I continued after its end. The purpose of this project is to discover the raytracing process in graphics and its differences with the classic “shading” graphics programming.
+Raytracing project first developed for the “Advanced Graphics” course of [Tobias Isenberg](https://tobias.isenberg.cc/) at Polytech Paris-Sud that I continued after its end. The purpose of this project is to discover the raytracing process in graphics and its differences with the classic “shading” graphics programming.
 
 ## Requirement
 
